@@ -33,11 +33,9 @@ import { ColorContextProvider } from './ColorContext/darkContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <ColorContextProvider>
-            <App />
-        </ColorContextProvider>
-    </React.StrictMode>
+    <ColorContextProvider>
+        <App />
+    </ColorContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
