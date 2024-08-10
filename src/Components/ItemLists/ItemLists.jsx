@@ -1,8 +1,8 @@
-import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import LocalGroceryStoreOutlinedIcon from '@mui/icons-material/LocalGroceryStoreOutlined';
-import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './itemlists.scss';
@@ -28,16 +28,17 @@ function ItemLists({ type }) {
                 ),
                 link: 'See all users',
                 linkto: '/users',
+                percent: "20%"
             };
             break;
-        case 'orders':
+        case 'events':
             data = {
-                title: 'ORDERS',
+                title: 'EVENTS',
                 isMoney: false,
                 count: 34,
 
                 icon: (
-                    <LocalGroceryStoreOutlinedIcon
+                    <EventAvailableIcon
                         style={{
                             color: '#AC7088',
                             backgroundColor: '#FFF38C',
@@ -45,17 +46,19 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'View all orders',
-                linkto: '/orders',
+                link: 'View all events',
+                linkto: '/events',
+                percent: "24%"
+
             };
             break;
-        case 'products':
+        case 'games':
             data = {
-                title: 'PRODUCTS',
+                title: 'GAMES',
                 isMoney: true,
                 count: 107,
                 icon: (
-                    <AttachMoneyOutlinedIcon
+                    <SportsEsportsIcon
                         style={{
                             color: '#367E18',
                             backgroundColor: '#A7FFE4',
@@ -63,17 +66,19 @@ function ItemLists({ type }) {
                         className="icon"
                     />
                 ),
-                link: 'See all products',
-                linkto: '/products',
+                link: 'See all games',
+                linkto: '/games',
+                percent: "0%"
+
             };
             break;
         case 'balance':
             data = {
-                title: 'BALANCE',
+                title: 'Enterprise',
                 count: 444,
                 isMoney: true,
                 icon: (
-                    <PaidOutlinedIcon
+                    <HandshakeIcon
                         style={{
                             color: '#AC7088',
                             backgroundColor: '#B1B2FF',
@@ -83,6 +88,8 @@ function ItemLists({ type }) {
                 ),
                 link: 'See all details',
                 linkto: '/',
+                percent: "10%"
+
             };
             break;
         default:
@@ -95,12 +102,11 @@ function ItemLists({ type }) {
                 <p>{data.title}</p>
                 <span className="persentage positive">
                     <KeyboardArrowUpIcon />
-                    20 %
+                    {data.percent}
                 </span>
             </div>
 
             <div className="counts">
-                {data.isMoney && <AttachMoneyOutlinedIcon />}
                 {data.count}
             </div>
 

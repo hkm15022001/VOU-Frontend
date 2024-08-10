@@ -23,62 +23,62 @@ function TableList() {
     const data = [
         {
             _id: 23423343,
-            product: 'Programing Book 1',
+            game: 'Game Lắc Trúng Thưởng',
             image: book1,
             customer: 'Devid John',
-            date: '3 October, 2022',
-            ammount: 45,
-            method: 'Online Payment',
+            date: '3 October, 2024',
+            score: 45,
+            enterprise: 'Shopee',
             status: 'Approved',
         },
         {
             _id: 235343343,
-            product: 'Programing Book 2',
+            game: 'Game Lắc Trúng Thưởng',
             image: book2,
             customer: 'Julia Ani',
-            date: '23 April, 2022',
-            ammount: 55,
-            method: 'Cash On Delivery',
+            date: '23 April, 2024',
+            score: 55,
+            enterprise: 'Grab',
             status: 'Pending',
         },
         {
             _id: 234239873,
-            product: 'Programing Book 3',
+            game: 'Game trả lời câu hỏi Trúng Thưởng',
             image: book3,
             customer: 'John Smith',
-            date: '10 October, 2022',
-            ammount: 25,
-            method: 'Online Payment',
+            date: '10 October, 2024',
+            score: 25,
+            enterprise: 'Bee',
             status: 'Approved',
         },
         {
             _id: 23423143,
-            product: 'Programing Book 4',
+            game: 'Game Lắc Trúng Thưởng',
             image: book4,
             customer: 'Devid John',
-            date: '3 March, 2022',
-            ammount: 40,
-            method: 'Cash On Delivery',
+            date: '3 March, 2024',
+            score: 40,
+            enterprise: 'Garena',
             status: 'Approved',
         },
         {
             _id: 123423343,
-            product: 'Programing Book 5',
+            game: 'Game trả lời câu hỏi Trúng Thưởng',
             image: book5,
             customer: 'Humlar',
-            date: '20 November, 2022',
-            ammount: 45,
-            method: 'Online Payment',
+            date: '20 November, 2024',
+            score: 45,
+            enterprise: 'Viettel Money',
             status: 'Approved',
         },
         {
             _id: 2333343,
-            product: 'Programing Book 6',
+            game: 'Game trả lời câu hỏi Trúng Thưởng',
             image: book2,
             customer: 'Devid John',
-            date: '12 June, 2022',
-            ammount: 28,
-            method: 'Cash On Delivery',
+            date: '12 June, 2024',
+            score: 28,
+            enterprise: 'FPT Play',
             status: 'Pending',
         },
     ];
@@ -89,11 +89,11 @@ function TableList() {
                 <TableHead>
                     <TableRow>
                         <TableCell className="table_cell">Tracking Id</TableCell>
-                        <TableCell className="table_cell">Product</TableCell>
-                        <TableCell className="table_cell">Customer</TableCell>
-                        <TableCell className="table_cell">Ammount</TableCell>
+                        <TableCell className="table_cell">Game</TableCell>
+                        <TableCell className="table_cell">End User</TableCell>
+                        <TableCell className="table_cell">Score</TableCell>
                         <TableCell className="table_cell">Date</TableCell>
-                        <TableCell className="table_cell">Payment Status</TableCell>
+                        <TableCell className="table_cell">Enterprise</TableCell>
                         <TableCell className="table_cell">Status</TableCell>
                     </TableRow>
                 </TableHead>
@@ -101,16 +101,16 @@ function TableList() {
                     {data.map((row) => (
                         <TableRow key={row._id}>
                             <TableCell component="th" scope="row" className="table_cell">
-                                <div className="product_idd">
-                                    <img src={row.image} alt="product" className="product_img" />
+                                <div className="game_idd">
+                                    <img src={row.image} alt="game" className="game_img" />
                                     {row._id}
                                 </div>
                             </TableCell>
-                            <TableCell className="table_cell">{row.product}</TableCell>
+                            <TableCell className="table_cell">{row.game}</TableCell>
                             <TableCell className="table_cell">{row.customer}</TableCell>
-                            <TableCell className="table_cell">{row.ammount}</TableCell>
+                            <TableCell className="table_cell">{row.score}</TableCell>
                             <TableCell className="table_cell">{row.date}</TableCell>
-                            <TableCell className="table_cell">{row.method}</TableCell>
+                            <TableCell className="table_cell">{row.enterprise}</TableCell>
                             <TableCell className="table_cell">
                                 <span className={`status ${row.status}`}>{row.status}</span>
                             </TableCell>

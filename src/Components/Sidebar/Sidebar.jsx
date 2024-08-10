@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import TableChartIcon from '@mui/icons-material/TableChart';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../ColorContext/darkContext';
@@ -20,7 +21,7 @@ function Sidebar() {
         <div className="sidebar">
             <div className="logo">
                 <Link to="/" style={{ textDecoration: 'none' }}>
-                    <h3 className="text_none">AdminDashboard</h3>
+                    <h3 className="text_none">VOU ADMIN</h3>
                 </Link>
             </div>
 
@@ -40,18 +41,18 @@ function Sidebar() {
                         </li>
                     </Link>
 
-                    <Link to="/products" style={{ textDecoration: 'none' }}>
+                    <Link to="/games" style={{ textDecoration: 'none' }}>
                         <li>
-                            <TableChartIcon className="icon" /> Products
+                            <SportsEsportsIcon className="icon" /> Games
                         </li>
                     </Link>
-                    <Link to="/orders" style={{ textDecoration: 'none' }}>
+                    <Link to="/events" style={{ textDecoration: 'none' }}>
                         <li>
-                            <CreditCardIcon className="icon" /> Orders
+                            <EventAvailableIcon className="icon" /> Events
                         </li>
                     </Link>
                     <li>
-                        <CreditCardIcon className="icon" /> Balance
+                        <HandshakeIcon className="icon" /> Enterprise
                     </li>
                     <li>
                         <BarChartIcon className="icon" /> Status

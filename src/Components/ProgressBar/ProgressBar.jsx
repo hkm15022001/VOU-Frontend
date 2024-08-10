@@ -1,27 +1,38 @@
-import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import GradeIcon from '@mui/icons-material/Grade';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import { Tooltip } from '@mui/material';
 import React from 'react';
 import 'react-circular-progressbar/dist/styles.css';
-import { Pie, PieChart, ResponsiveContainer } from 'recharts';
+import { Pie, PieChart, ResponsiveContainer, Text } from 'recharts';
 
 // import css filr
 import './progressBar.scss';
 
 function ProgressBar() {
     const data01 = [
-        { name: 'Users', value: 23 },
-        { name: 'Hotels', value: 30 },
-        { name: 'Rooms', value: 15 },
-        { name: 'Blogs', value: 19 },
-        { name: 'Balance', value: 20 },
+        { name: 'Game Lắc Trúng Thưởng', value: 40 },
+        { name: 'Game Trả Lời Câu Hỏi', value: 60 },
     ];
-
+    const renderCustomLabel = ({ name, percent, x, y }) => {
+        return (
+            <Text
+                x={x}
+                y={y}
+                fill="#000" // Màu sắc của chữ
+                textAnchor="middle"
+                dominantBaseline="central"
+                style={{ fontSize: 12 }} // Kích thước chữ
+            >
+                {`${name} (${(percent * 100).toFixed(0)}%)`}
+            </Text>
+        );
+    };
+    
     return (
         <div className="progress_bar">
             <div className="top">
-                <p>Total Revenue</p>
+                <p>Total number of rounds played in month</p>
                 <MoreVertOutlinedIcon />
             </div>
 
@@ -37,16 +48,16 @@ function ProgressBar() {
                                 cy="50%"
                                 outerRadius={80}
                                 fill="#536def"
-                                label
+                                label={renderCustomLabel}
                             />
                             <Tooltip />
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <p>Total sales made today.</p>
+                <p>Total number of rounds played today.</p>
                 <p className="price">
-                    <AttachMoneyOutlinedIcon style={{ fontSize: '32px' }} />
-                    324
+                    <GradeIcon style={{ fontSize: '32px' }} />
+                    52
                 </p>
             </div>
 
@@ -57,13 +68,13 @@ function ProgressBar() {
                     <div className="nested_nested">
                         <p>Last Week</p>
                         <p className="pricee">
-                            <KeyboardArrowUpOutlinedIcon /> $11.9k
+                            <KeyboardArrowUpOutlinedIcon /> 347
                         </p>
                     </div>
                     <div className="nested_nested">
                         <p>Last Month</p>
                         <p className="pricee decrese">
-                            <KeyboardArrowUpOutlinedIcon /> $12.4k
+                            <KeyboardArrowUpOutlinedIcon /> 1354
                         </p>
                     </div>
                 </div>

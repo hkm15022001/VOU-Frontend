@@ -1,11 +1,11 @@
-.orders {
+.events {
   display: grid;
   grid-template-columns: 17% 83%;
   justify-content: center;
 }
 
 @media screen and (max-width: 992px) {
-  .orders {
+  .events {
     display: grid;
     grid-template-columns: 100%;
     justify-content: center;

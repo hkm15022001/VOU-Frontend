@@ -22,14 +22,14 @@ function Home() {
 
                 <div className="home_items">
                     <ItemLists type="user" />
-                    <ItemLists type="orders" />
-                    <ItemLists type="products" />
+                    <ItemLists type="events" />
+                    <ItemLists type="games" />
                     <ItemLists type="balance" />
                 </div>
 
                 <div className="chart_sec">
                     <ProgressBar />
-                    <Chart height={450} title="Revenue" />
+                    <Chart height={450} title="Total players" />
                 </div>
 
                 <div className="table">

@@ -1,15 +1,16 @@
 import { useContext } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './app.scss';
 import { ColorContext } from './ColorContext/darkContext';
+import Events from './Components/Events/Events';
 import Home from './Components/Home/Home';
-import Orders from './Components/Orders/Orders';
 import AddNew from './Pages/AddNew/AddNew';
 import BlogDetail from './Pages/BlogDetail/BlogDetail';
 import Blogs from './Pages/Blogs/Blogs';
 import Detail from './Pages/Detail/Detail';
 import Login from './Pages/Login/Login';
+import UserDetailsPage from './Pages/UserDetail/UserDetailsPage';
 import Lists from './Pages/UserLists/UserLists';
-import './app.scss';
 
 // Dynamicaly change the data for different pages(replaceable)
 const userInpDetails = [
@@ -55,21 +56,34 @@ const userInpDetails = [
     },
     {
         id: 6,
-        name: 'address',
-        lable: 'Address',
+        name: 'phone',
+        lable: 'Phone',
         type: 'text',
-        placeholder: 'Address',
+        placeholder: 'Phone',
         required: true,
-        errorMsg: 'Address is required!',
+        errorMsg: 'Phone is required!',
     },
+    {
+        id: 7,
+        lable: "Role",
+        type: "select",
+        name: "role",
+        options: [
+            { label: 'Admin', value: 'admin' },
+            { label: 'End User', value: 'end_user' },
+            { label: 'Enterprise', value: 'enterprise' },
+        ],
+        errorMsg: "Please select an option",
+        required: true,
+    }
 ];
-const productInpDetails = [
+const gameInpDetails = [
     {
         id: 2,
         name: 'title',
         lable: 'Title',
         type: 'text',
-        placeholder: 'Product title',
+        placeholder: 'game title',
         required: true,
         errorMsg: 'Title is required!',
     },
@@ -78,7 +92,7 @@ const productInpDetails = [
         name: 'description',
         lable: 'Description',
         type: 'text',
-        placeholder: 'Product description',
+        placeholder: 'game description',
         required: true,
         errorMsg: 'Description is required!',
     },
@@ -87,7 +101,7 @@ const productInpDetails = [
         name: 'category',
         lable: 'Category',
         type: 'text',
-        placeholder: 'Product category',
+        placeholder: 'game category',
         required: true,
         errorMsg: 'Category is required!',
     },
@@ -96,7 +110,7 @@ const productInpDetails = [
         name: 'price',
         lable: 'Price',
         type: 'number',
-        placeholder: 'Product price',
+        placeholder: 'game price',
         required: true,
         errorMsg: 'Price is required!',
     },
@@ -154,7 +168,7 @@ function App() {
                         {/* nested routes */}
                         <Route path="users">
                             <Route index element={<Lists type="user" />} />
-                            <Route path=":userId" element={<Detail />} />
+                            <Route path=":userId" element={<UserDetailsPage  />} />
                             <Route
                                 path="addnew"
                                 element={
@@ -167,19 +181,19 @@ function App() {
                             />
                         </Route>
 
-                        <Route path="orders" element={<Orders />} />
+                        <Route path="events" element={<Events />} />
 
                         {/* nested routes */}
-                        <Route path="products">
-                            <Route index element={<Lists type="product" />} />
-                            <Route path=":productId" element={<Detail />} />
+                        <Route path="games">
+                            <Route index element={<Lists type="game" />} />
+                            <Route path=":gameId" element={<Detail />} />
                             <Route
                                 path="addnew"
                                 element={
                                     <AddNew
-                                        inputs={productInpDetails}
-                                        titlee="Add New Product"
-                                        type="PRODUCT"
+                                        inputs={gameInpDetails}
+                                        titlee="Add New game"
+                                        type="GAME"
                                     />
                                 }
                             />

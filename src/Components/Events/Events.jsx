@@ -2,16 +2,16 @@ import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import Sidebar from '../Sidebar/Sidebar';
 import TableList from '../TableList/TableList';
-import './orders.scss';
+import './events.scss';
 
-function Orders() {
+function Events() {
     return (
-        <div className="orders">
+        <div className="events">
             <div className="home_sidebar">
                 <Sidebar />
             </div>
 
-            <div className="orders_main">
+            <div className="events_main">
                 <Navbar />
 
                 <TableList />
@@ -20,4 +20,4 @@ function Orders() {
     );
 }
 
-export default Orders;
+export default Events;

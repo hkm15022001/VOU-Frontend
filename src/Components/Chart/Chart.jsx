@@ -9,52 +9,32 @@ a data point and has two properties: `name` and `total`. */
 // Place your own data here
 const data = [
     {
-        name: 'January',
-        total: 700,
+        name: '03/08/2024',
+        total: 50,
     },
     {
-        name: 'February',
-        total: 1250,
+        name: '04/08/2024',
+        total: 75,
     },
     {
-        name: 'March',
-        total: 1410,
+        name: '05/08/2024',
+        total: 80,
     },
     {
-        name: 'April',
-        total: 1100,
+        name: '06/08/2024',
+        total: 45,
     },
     {
-        name: 'May',
-        total: 700,
+        name: '07/08/2024',
+        total: 66,
     },
     {
-        name: 'June',
-        total: 1000,
+        name: '08/08/2024',
+        total: 105,
     },
     {
-        name: 'July',
-        total: 1250,
-    },
-    {
-        name: 'August',
-        total: 1050,
-    },
-    {
-        name: 'September',
-        total: 800,
-    },
-    {
-        name: 'October',
-        total: 960,
-    },
-    {
-        name: 'November',
-        total: 1150,
-    },
-    {
-        name: 'December',
-        total: 1250,
+        name: '08/09/2024',
+        total: 88,
     },
 ];
 
@@ -63,7 +43,7 @@ function Chart({ height, title }) {
         <div className="chart_sec">
             <div>
                 <div className="title">
-                    <p>{title} (Last 1 year)</p>
+                    <p>{title} (Last 1 week)</p>
                 </div>
 
                 <div style={{ width: '100%', height: 300 }}>

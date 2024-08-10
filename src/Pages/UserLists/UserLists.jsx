@@ -24,7 +24,7 @@ function Lists({ type }) {
                     <div className="btnn">
                         <Link
                             to={`/${
-                                type === 'product' ? 'products' : 'user' ? 'users' : 'blogs'
+                                type === 'game' ? 'games' : 'user' ? 'users' : 'blogs'
                             }/addnew`}
                             style={{ textDecoration: 'none' }}
                         >

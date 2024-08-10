@@ -2,10 +2,11 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import CloseIcon from '@mui/icons-material/Close';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 import LanguageIcon from '@mui/icons-material/Language';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -14,7 +15,8 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import TableChartIcon from '@mui/icons-material/TableChart';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../ColorContext/darkContext';
@@ -111,18 +113,18 @@ function Navbar() {
                                         </li>
                                     </Link>
 
-                                    <Link to="/products" style={{ textDecoration: 'none' }}>
+                                    <Link to="/games" style={{ textDecoration: 'none' }}>
                                         <li>
-                                            <TableChartIcon className="icon" /> Products
+                                            <SportsEsportsIcon className="icon" /> Games
                                         </li>
                                     </Link>
-                                    <Link to="/orders" style={{ textDecoration: 'none' }}>
+                                    <Link to="/events" style={{ textDecoration: 'none' }}>
                                         <li>
-                                            <CreditCardIcon className="icon" /> Orders
+                                            <EventAvailableIcon className="icon" /> Events
                                         </li>
                                     </Link>
                                     <li>
-                                        <CreditCardIcon className="icon" /> Balance
+                                        <HandshakeIcon className="icon" /> Enterprise
                                     </li>
                                     <li>
                                         <BarChartIcon className="icon" /> Status
