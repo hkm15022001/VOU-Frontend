@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import Sidebar from '../Sidebar/Sidebar';
-import TableList from '../TableList/TableList';
+import TableList from '../TransactionList/TransactionList';
 import './events.scss';
 
 function Events() {

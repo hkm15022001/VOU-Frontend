@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createUser } from '../../api';
+import { createGame, createUser } from '../../api';
 import Input from '../../Components/Input/Input';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
@@ -13,9 +13,9 @@ import noImage from '../../Images/photo-camera.png';
 import './New.scss';
 
 function AddNew({ inputs, titlee, type }) {
+    
     const navigate = useNavigate();
-    // const [popupMessage, setPopupMessage] = useState('');
-    const [loading, setLoading] = useState(false); 
+    const [loading, setLoading] = useState(false);
 
     let dynamicInpVal;
 
@@ -34,11 +34,11 @@ function AddNew({ inputs, titlee, type }) {
             break;
         case 'GAME':
             dynamicInpVal = {
-                title: '',
-                description: '',
-                category: '',
-                price: '',
-                stock: '',
+                name: '',
+                type: '',
+                exchange_allow: '',
+                tutorial: '',
+                images: ''
             };
             break;
         case 'BLOG':
@@ -54,28 +54,49 @@ function AddNew({ inputs, titlee, type }) {
 
     const [userInp, setUserInp] = useState(dynamicInpVal);
     const [file, setFile] = useState('');
-    const image = false;
+    // const image = false;
 
     // Dynamically change the data for different pages
     const handleChange = (e) => {
-        setUserInp({ ...userInp, [e.target.name]: e.target.value });
-    };
+        const { name, value } = e.target;
+        let newValue = value;
+        if (name === 'exchange_allow') {
+            newValue = value === 'true';
+        };
+        setUserInp({ ...userInp, [name]: newValue });
+    }
+
+    const callAPI = async (call, type) => {
+        try {
+            const response = await call(userInp);
+            setLoading(false);
+            navigate(`/${type}s`);
+        } catch (error) {
+            setLoading(false);
+    
+            if (error.response) {
+                console.error('Response error:', error.response);
+                toast.error(`Error creating ${type}: ${error.response.data?.message || 'Please try again!'}`);
+            } else {
+                toast.error(`Error creating ${type}. Please try again!`);
+            }
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoading(true); // Đặt loading khi bắt đầu gọi API
-        console.log(userInp)
-        createUser(userInp)
-            .then(response => {
-                setLoading(false); // Tắt loading sau khi API hoàn thành
-                navigate('/users'); // Điều hướng về trang /users nếu thành công
-            })
-            .catch(error => {
-                console.error('error when call API:', error);
-                setLoading(false); // Tắt loading nếu có lỗi
-                
-                toast.error('Error creating user. Please try again!');
-            });
+        // console.log(userInp)
+        switch (type) {
+            case 'USER':
+                callAPI(createUser, 'user');
+                break;
+            case 'GAME':
+                callAPI(createGame, 'game')
+                break;
+            default:
+                break;
+        }
     };
 
     return (
@@ -122,18 +143,20 @@ function AddNew({ inputs, titlee, type }) {
                                 {loading ? 'Submitting...' : 'Submit'}
                             </button>
                         </form>
-
-                        {/* Hiển thị popup nếu có lỗi */}
-                        {/* {popupMessage && (
-                            <div className="popup">
-                                <p>{popupMessage}</p>
-                                <button onClick={() => setPopupMessage('')}>Close</button>
-                            </div>
-                        )} */}
                     </div>
                 </div>
             </div>
-            <ToastContainer />
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </div>
     );
 }

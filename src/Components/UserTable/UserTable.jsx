@@ -2,7 +2,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { deleteUser, getAllUsers } from '../../api';
-import './datatable.scss';
+import './UserTable.scss';
 
 const UserDataGrid = () => {
   const [users, setUsers] = useState([]);
@@ -47,7 +47,7 @@ const UserDataGrid = () => {
   };
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 150 },
+    { field: 'id', headerName: 'ID', width: 250 },
     { field: 'username', headerName: 'Username', width: 150 },
     { field: 'email', headerName: 'Email', width: 200 },
     { field: 'phone', headerName: 'Phone', width: 150 },
@@ -82,7 +82,7 @@ const UserDataGrid = () => {
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <h2>User List</h2>
+      <h2>User Lists</h2>
       <DataGrid
         rows={users}
         columns={columns}

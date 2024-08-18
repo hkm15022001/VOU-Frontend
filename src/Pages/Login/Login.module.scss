@@ -1,0 +1,13 @@
+.logo {
+    cursor: pointer;
+    color: $icon_color;
+    padding: 19px 20px;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    text-align: center;
+
+    .text_none {
+      text-decoration: none;
+      color: $icon_color;
+    }
+  }

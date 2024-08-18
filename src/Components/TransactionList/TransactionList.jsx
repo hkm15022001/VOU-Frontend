@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
-import './tableList.scss';
+import './TransactionList.scss';
 
 // mui table
 import Paper from '@mui/material/Paper';
@@ -25,9 +25,9 @@ function TableList() {
             _id: 23423343,
             game: 'Game Lắc Trúng Thưởng',
             image: book1,
-            customer: 'Devid John',
+            customer: 'DUONGHDT',
             date: '3 October, 2024',
-            score: 45,
+            score: "Mảnh ghép 1",
             enterprise: 'Shopee',
             status: 'Approved',
         },
@@ -35,9 +35,9 @@ function TableList() {
             _id: 235343343,
             game: 'Game Lắc Trúng Thưởng',
             image: book2,
-            customer: 'Julia Ani',
+            customer: 'Hungdq30',
             date: '23 April, 2024',
-            score: 55,
+            score: "Mảnh ghép 2",
             enterprise: 'Grab',
             status: 'Pending',
         },
@@ -45,7 +45,7 @@ function TableList() {
             _id: 234239873,
             game: 'Game trả lời câu hỏi Trúng Thưởng',
             image: book3,
-            customer: 'John Smith',
+            customer: 'minh22',
             date: '10 October, 2024',
             score: 25,
             enterprise: 'Bee',
@@ -55,9 +55,9 @@ function TableList() {
             _id: 23423143,
             game: 'Game Lắc Trúng Thưởng',
             image: book4,
-            customer: 'Devid John',
+            customer: 'Minh',
             date: '3 March, 2024',
-            score: 40,
+            score: "Mảnh ghép 5",
             enterprise: 'Garena',
             status: 'Approved',
         },
@@ -65,7 +65,7 @@ function TableList() {
             _id: 123423343,
             game: 'Game trả lời câu hỏi Trúng Thưởng',
             image: book5,
-            customer: 'Humlar',
+            customer: 'Duong',
             date: '20 November, 2024',
             score: 45,
             enterprise: 'Viettel Money',
@@ -75,7 +75,7 @@ function TableList() {
             _id: 2333343,
             game: 'Game trả lời câu hỏi Trúng Thưởng',
             image: book2,
-            customer: 'Devid John',
+            customer: 'Minh',
             date: '12 June, 2024',
             score: 28,
             enterprise: 'FPT Play',
@@ -94,7 +94,7 @@ function TableList() {
                         <TableCell className="table_cell">Score</TableCell>
                         <TableCell className="table_cell">Date</TableCell>
                         <TableCell className="table_cell">Enterprise</TableCell>
-                        <TableCell className="table_cell">Status</TableCell>
+                        {/* <TableCell className="table_cell">Status</TableCell> */}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -111,9 +111,9 @@ function TableList() {
                             <TableCell className="table_cell">{row.score}</TableCell>
                             <TableCell className="table_cell">{row.date}</TableCell>
                             <TableCell className="table_cell">{row.enterprise}</TableCell>
-                            <TableCell className="table_cell">
+                            {/* <TableCell className="table_cell">
                                 <span className={`status ${row.status}`}>{row.status}</span>
-                            </TableCell>
+                            </TableCell> */}
                         </TableRow>
                     ))}
                 </TableBody>

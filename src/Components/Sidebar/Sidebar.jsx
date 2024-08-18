@@ -8,11 +8,16 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import Button from '@mui/material/Button';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../ColorContext/darkContext';
 import './Sidebar.scss';
 
+function handleLogout() {
+    localStorage.removeItem('accessToken');
+    window.location.href = '/login';
+}
 function Sidebar() {
     // color state management using react context
     const { darkMode, dispatch } = useContext(ColorContext);
@@ -65,9 +70,11 @@ function Sidebar() {
                     <li>
                         <SettingsRoundedIcon className="icon" /> Setting
                     </li>
-                    <li>
-                        <LogoutIcon className="icon" /> Log Out
-                    </li>
+                    <Button className="logout"  color="inherit" variant="outlined" onClick={handleLogout}>
+                        <li>
+                            <LogoutIcon className="icon" /> Log Out
+                        </li>
+                    </Button>
                 </ul>
             </div>
         </div>

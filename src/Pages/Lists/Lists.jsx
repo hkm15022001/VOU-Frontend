@@ -2,11 +2,12 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DataTable from '../../Components/DataTable/DataTable';
+import GameDataGrid from '../../Components/GameTable/GameTable';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import TableList from '../../Components/TableList/TableList';
-import './userlists.scss';
+import TransactionList from '../../Components/TransactionList/TransactionList';
+import UserDataGrid from '../../Components/UserTable/UserTable';
+import './lists.scss';
 
 function Lists({ type }) {
     //
@@ -24,7 +25,7 @@ function Lists({ type }) {
                     <div className="btnn">
                         <Link
                             to={`/${
-                                type === 'game' ? 'games' : 'user' ? 'users' : 'blogs'
+                                type === 'games' ? 'games' : 'users' ? 'users' : 'blogs'
                             }/addnew`}
                             style={{ textDecoration: 'none' }}
                         >
@@ -32,7 +33,9 @@ function Lists({ type }) {
                         </Link>
                     </div>
 
-                    {type === 'user' ? <DataTable /> : <TableList />}
+                    {type === 'users' ? <UserDataGrid /> :  'games' ? <GameDataGrid/> : <TransactionList/> }
+                    
+
                 </div>
             </div>
         </div>

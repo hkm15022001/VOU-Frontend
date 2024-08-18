@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CustomButton from '../../Components/Button/Button';
 import Input from '../../Components/Input/Input';
-// import './UserDetailsEdit.scss';
+
 function UserDetailsEdit({ onSave, onCancel, user }) {
     const [formData, setFormData] = useState({
         name: user.name || '',

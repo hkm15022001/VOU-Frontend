@@ -7,16 +7,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './itemlists.scss';
 
-function ItemLists({ type }) {
+function ItemLists({ type, count }) {
     let data;
-
+    
     // Dynamicaly change the ui content
     switch (type) {
         case 'user':
             data = {
                 title: 'USERS',
                 isMoney: false,
-                count: 232,
+                count: count,
                 icon: (
                     <PermIdentityIcon
                         style={{
@@ -35,7 +35,7 @@ function ItemLists({ type }) {
             data = {
                 title: 'EVENTS',
                 isMoney: false,
-                count: 34,
+                count: count,
 
                 icon: (
                     <EventAvailableIcon
@@ -56,7 +56,7 @@ function ItemLists({ type }) {
             data = {
                 title: 'GAMES',
                 isMoney: true,
-                count: 107,
+                count: count,
                 icon: (
                     <SportsEsportsIcon
                         style={{
@@ -72,10 +72,10 @@ function ItemLists({ type }) {
 
             };
             break;
-        case 'balance':
+        case 'enterprise':
             data = {
                 title: 'Enterprise',
-                count: 444,
+                count: count,
                 isMoney: true,
                 icon: (
                     <HandshakeIcon

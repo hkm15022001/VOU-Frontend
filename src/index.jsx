@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import App from './App';
 import { ColorContextProvider } from './ColorContext/darkContext';
+import Login from './Pages/Login/Login';
 // import Lists from './Pages/Lists/Lists';
 
 // const router = createBrowserRouter([
@@ -28,10 +29,23 @@ import { ColorContextProvider } from './ColorContext/darkContext';
 //     },
 // ]);
 
+const isAuthenticated = () => {
+    return !!localStorage.getItem('accessToken');
+};
+
+const ProtectedRoute = ({ element: Component, ...rest }) => (
+    isAuthenticated() ? <Component {...rest} /> : <Navigate to="/login" />
+);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <ColorContextProvider>
-        <App />
+        <Router>
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/*" element={<ProtectedRoute element={App} />} />
+            </Routes>
+        </Router>
     </ColorContextProvider>
 );
 

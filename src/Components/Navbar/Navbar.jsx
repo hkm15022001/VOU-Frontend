@@ -16,7 +16,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-
+import Button from '@mui/material/Button';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../ColorContext/darkContext';
@@ -26,6 +26,10 @@ import './navbar.scss';
 
 // import images
 import admin from '../../Images/admin_pic.jpg';
+function handleLogout() {
+    localStorage.removeItem('accessToken');
+    window.location.href = '/login';
+}
 
 function Navbar() {
     const [toggle, setToggle] = useState(false);
@@ -137,9 +141,13 @@ function Navbar() {
                                     <li>
                                         <SettingsRoundedIcon className="icon" /> Setting
                                     </li>
-                                    <li>
-                                        <LogoutIcon className="icon" /> Log Out
-                                    </li>
+                                    <Button  onClick={handleLogout}>
+                                        <li>
+                                            <LogoutIcon className="icon" /> Log Out
+                                        </li>
+                                    </Button>
+
+                                    
                                 </ul>
                             </div>
                         </div>

@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function CustomButton({content, onClickHandle, type}) {
   return (
-    <Button  style= {{ marginRight: 10}}
+    <Button  style= {{ marginTop: 20,marginRight: 20}}
       variant="contained" 
       color="primary" 
       size="large" 

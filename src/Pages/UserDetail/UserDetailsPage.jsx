@@ -1,4 +1,5 @@
-// UserDetailsPage.js
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getUser, updateUser } from '../../api'; // Cập nhật import updateUser
@@ -7,7 +8,7 @@ import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import UserDetailsEdit from '../UserEdit/ UserDetailsEdit';
 import UserDetails from './UserDetails';
-// import './UserDetailsPage.scss';
+import './UserDetailsPage.scss';
 
 function UserDetailsPage() {
     const { userId } = useParams();
@@ -34,7 +35,7 @@ function UserDetailsPage() {
 
     const handleSave = async (updatedUser) => {
         try {
-            console.log(updatedUser)
+            // console.log(updatedUser)
             await updateUser(userId, updatedUser);
             setUser(updatedUser);
             setEditing(false);
@@ -52,7 +53,9 @@ function UserDetailsPage() {
         setEditing(false);
     };
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return (<Box sx={{ display: 'flex', justifyContent: 'center'}}>
+                            <CircularProgress />
+                        </Box>);
     if (error) return <p>Error: {error.message}</p>;
 
     return (
@@ -62,7 +65,9 @@ function UserDetailsPage() {
             </div>
 
             <div className="detail_page_main">
-                <Navbar />
+                <div className="navbar">
+                    <Navbar />
+                </div>
                 <div className="user-page">
                     {editing ? (
                         <UserDetailsEdit  onSave={handleSave} onCancel={handleCancel} user={{
