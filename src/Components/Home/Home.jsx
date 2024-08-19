@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react';
-import { getCountAllEnterprises, getCountAllGames, getCountAllUsers } from '../../api';
+import { getCountAllEnterprises, getCountAllGames, getCountAllUsers, getStatisticEnterprises, getStatisticUsers } from '../../api';
 import Chart from '../Chart/Chart';
 import ItemLists from '../ItemLists/ItemLists';
 import Navbar from '../Navbar/Navbar';
@@ -12,20 +12,35 @@ function Home() {
     const [countUsers, setCountUsers] = useState(null);
     const [countGames, setCountGames] = useState(null);
     const [countEnterprises, setCountEnterprises] = useState(null);
-    const [loading,setLoading] = useState(true)
+    const [usersInWeekData, setUsersInWeekData] = useState([]);
+    const [enterpriseInWeekData, setEnterpriseInWeekData] = useState([]);
 
+    const [loading,setLoading] = useState(true);
+    const transform = (data) => {
+        return  data.map(item => ({
+            ...item,
+            day: item.day.split('T')[0] 
+        }));
+    }
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const [response1, response2, response3] = await Promise.all([
+                const [response1, response2, response3, response4, response5] = await Promise.all([
                     getCountAllUsers(),
                     getCountAllGames(),
-                    getCountAllEnterprises()
+                    getCountAllEnterprises(),
+                    getStatisticUsers(),
+                    getStatisticEnterprises()
                 ]);
                 setCountUsers(response1.data.data);
                 setCountGames(response2.data.data);
                 setCountEnterprises(response3.data.data);
+                
+                setUsersInWeekData(transform(response4.data.data));
+                setEnterpriseInWeekData(transform(response5.data.data));
+
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -63,8 +78,13 @@ function Home() {
                 
 
                 <div className="chart_sec">
-                    <ProgressBar />
-                    <Chart height={450} title="Total players" />
+                    <div className="progress">
+                        <ProgressBar />
+                    </div>
+                    <div className="charts">
+                        <Chart  marginBottom={150} data={usersInWeekData} height={450} title="Total registered users" />
+                        <Chart marginBottom={20} data={enterpriseInWeekData} height={450} title="Total registered enterprise" />
+                    </div>
                 </div>
 
                 <div className="table">

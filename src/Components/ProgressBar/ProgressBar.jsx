@@ -11,8 +11,8 @@ import './progressBar.scss';
 
 function ProgressBar() {
     const data01 = [
-        { name: 'Game Lắc Trúng Thưởng', value: 40 },
-        { name: 'Game Trả Lời Câu Hỏi', value: 60 },
+        { name: 'Cầu nguyện cùng sao băng', value: 40 },
+        { name: 'Thử thách trí tuệ', value: 60 },
     ];
     const renderCustomLabel = ({ name, percent, x, y }) => {
         return (

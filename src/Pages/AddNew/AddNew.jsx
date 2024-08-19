@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createGame, createUser } from '../../api';
+import { createGame, createUser, uploadGameImage } from '../../api';
 import Input from '../../Components/Input/Input';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
@@ -83,19 +83,40 @@ function AddNew({ inputs, titlee, type }) {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true); // Đặt loading khi bắt đầu gọi API
-        // console.log(userInp)
-        switch (type) {
-            case 'USER':
-                callAPI(createUser, 'user');
-                break;
-            case 'GAME':
-                callAPI(createGame, 'game')
-                break;
-            default:
-                break;
+        setLoading(true);
+    
+        try {
+            let imagePath = '';
+    
+            if (file) {
+                const uploadResponse = await uploadGameImage(file);
+                imagePath = uploadResponse.data.data; 
+            }
+    
+            const updatedUserInp = { ...userInp, images: imagePath };
+            console.log(updatedUserInp)
+            switch (type) {
+                case 'USER':
+                    await callAPI(createUser, 'user');
+                    break;
+                case 'GAME':
+                    await callAPI(() => createGame(updatedUserInp), 'game');
+                    break;
+                default:
+                    break;
+            }
+        } catch (error) {
+            setLoading(false);
+            console.error('Error during submission:', error);
+    
+            if (error.response) {
+                console.error('Response error:', error.response);
+                toast.error(`Error creating ${type}: ${error.response.data?.message || 'Please try again!'}`);
+            } else {
+                toast.error(`Error creating ${type}. Please try again!`);
+            }
         }
     };
 

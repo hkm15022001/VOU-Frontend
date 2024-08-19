@@ -116,3 +116,22 @@
     }
   }
 }
+
+.chart_sec {
+  display: flex;
+  justify-content: space-between;
+}
+
+.charts {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  margin-bottom: 100px;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding-left: 20px; /* Thêm khoảng cách giữa biểu đồ và progress bar nếu cần */
+}

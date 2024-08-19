@@ -3,7 +3,7 @@ import './input.scss';
 
 function Input(inpDetails) {
     const [focus, setFocus] = useState(false);
-    const { lable, onChange, type, errorMsg, options, ...detail } = inpDetails;
+    const { label, onChange, type, errorMsg, options, ...detail } = inpDetails;
 
     const handleBlur = () => {
         setFocus(true);
@@ -11,7 +11,7 @@ function Input(inpDetails) {
 
     return (
         <div className="input_component">
-            <label>{lable}</label>
+            <label>{label}</label>
             {type === 'select' ? (
                 <select
                     className="input_field"

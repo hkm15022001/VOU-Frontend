@@ -2,14 +2,14 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { BackEndAddress, getGame, updateGame } from '../../api';
 import CustomButton from '../../Components/Button/Button';
 import Chart from '../../Components/Chart/Chart';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import TableList from '../../Components/TransactionList/TransactionList';
+import { BackEndAddress, getGame, updateGame } from '../../api';
+import GameDetailsEdit from '../GameEdit/GameEdit';
 import './GameDetail.scss';
-
 function GameDetail() {
     // const { userId, productId } = useParams();
     const { gameId } = useParams();
@@ -34,11 +34,11 @@ function GameDetail() {
         fetchGame();
     }, [gameId]);
 
-    const handleSave = async (updatedHame) => {
+    const handleSave = async (updatedGame) => {
         try {
             // console.log(updatedgame)
-            await updateGame(gameId, updatedgame);
-            setgame(updatedgame);
+            await updateGame(gameId, updatedGame);
+            setGame(updatedGame);
             setEditing(false);
             navigate('/games'); // Điều hướng về trang danh sách người dùng
         } catch (error) {
@@ -71,7 +71,7 @@ function GameDetail() {
 
                 <div className="game_info">
                     {editing ? (
-                        <UserDetailsEdit  onSave={handleSave} onCancel={handleCancel} game={{
+                        <GameDetailsEdit  onSave={handleSave} onCancel={handleCancel} game={{
                             name: game.name,
                             images: game.images,
                             tutorial: game.tutorial,
@@ -101,6 +101,7 @@ function GameDetail() {
                     <TableList />
                 </div>
             </div>
+            
         </div>
     );
 }

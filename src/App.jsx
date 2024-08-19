@@ -17,7 +17,7 @@ const userInpDetails = [
     {
         id: 2,
         name: 'username',
-        lable: 'Username',
+        label: 'Username',
         type: 'text',
         placeholder: 'John23',
         required: true,
@@ -27,7 +27,7 @@ const userInpDetails = [
     {
         id: 3,
         name: 'name',
-        lable: 'Name',
+        label: 'Name',
         type: 'text',
         placeholder: 'John Smith',
         required: true,
@@ -37,7 +37,7 @@ const userInpDetails = [
     {
         id: 4,
         name: 'email',
-        lable: 'Email',
+        label: 'Email',
         type: 'email',
         placeholder: 'example@email.com',
         required: true,
@@ -46,7 +46,7 @@ const userInpDetails = [
     {
         id: 5,
         name: 'password',
-        lable: 'Password',
+        label: 'Password',
         type: 'password',
         placeholder: 'Password',
         required: true,
@@ -57,7 +57,7 @@ const userInpDetails = [
     {
         id: 6,
         name: 'phone',
-        lable: 'Phone',
+        label: 'Phone',
         type: 'text',
         placeholder: 'Phone',
         required: true,
@@ -65,7 +65,7 @@ const userInpDetails = [
     },
     {
         id: 7,
-        lable: "Role",
+        label: "Role",
         type: "select",
         name: "role",
         options: [
@@ -81,7 +81,7 @@ const gameInpDetails = [
     {
         id: 2,
         name: 'name',
-        lable: 'Name',
+        label: 'Name',
         type: 'text',
         placeholder: 'Name of Game',
         required: true,
@@ -90,7 +90,7 @@ const gameInpDetails = [
     {
         id: 3,
         name: 'type',
-        lable: 'Type',
+        label: 'Type',
         type: 'text',
         placeholder: 'Type of Game',
         required: true,
@@ -98,7 +98,7 @@ const gameInpDetails = [
     },
     {
         id: 4,
-        lable: "Exchange Allow",
+        label: "Exchange Allow",
         type: "select",
         name: "exchange_allow",
         options: [
@@ -111,7 +111,7 @@ const gameInpDetails = [
     {
         id: 5,
         name: 'tutorial',
-        lable: 'Tutorial',
+        label: 'Tutorial',
         type: 'text',
         placeholder: 'Tutorial',
         required: true,
@@ -122,7 +122,7 @@ const blogInputs = [
     {
         id: 1,
         name: 'title',
-        lable: 'Title',
+        label: 'Title',
         type: 'text',
         placeholder: 'Blog title',
         required: true,
@@ -131,7 +131,7 @@ const blogInputs = [
     {
         id: 2,
         name: 'description',
-        lable: 'Description',
+        label: 'Description',
         type: 'text',
         placeholder: 'Blog description',
         required: true,
@@ -140,7 +140,7 @@ const blogInputs = [
     {
         id: 3,
         name: 'tags',
-        lable: 'Tags',
+        label: 'Tags',
         type: 'text',
         placeholder: 'Travel, Communication',
         required: true,

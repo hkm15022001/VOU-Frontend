@@ -1,7 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { deleteGame, getAllGames } from '../../api';
+import { BackEndAddress, deleteGame, getAllGames } from '../../api';
 import './GameTable.scss';
 
 const GameDataGrid = () => {
@@ -37,8 +37,13 @@ const GameDataGrid = () => {
   };
 
   const columns = [
+    { field: 'image', headerName: 'Image', width: 100,
+      renderCell: (param) => (
+          <img src={`${BackEndAddress}/image/game/${param.row.images}`} alt="game" className="game game_image" />
+      ),
+  },
     { field: 'id', headerName: 'ID', width: 300 },
-    { field: 'name', headerName: 'Name', width: 150 },
+    { field: 'name', headerName: 'Name', width: 300 },
     { field: 'type', headerName: 'Type', width: 150 },
     { field: 'tutorial', headerName: 'Tutorial', width: 250 },
     { field: 'exchange_allow', headerName: 'ExchangeAllow', width: 200,

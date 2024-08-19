@@ -1,74 +1,88 @@
 import React, { useState } from 'react';
 import CustomButton from '../../Components/Button/Button';
 import Input from '../../Components/Input/Input';
+import { uploadGameImage } from '../../api'; // Assuming this is the API call for uploading images
 
-function UserDetailsEdit({ onSave, onCancel, user }) {
+function GameDetailsEdit({ onSave, onCancel, game }) {
     const [formData, setFormData] = useState({
-        name: user.name || '',
-        email: user.email || '',
-        password: user.password || '',
-        phone: user.phone || '',
-        role: user.role || '',
-        status: user.status || ''
+        name: game.name || '',
+        type: game.type || '',
+        exchange_allow: game.exchange_allow.toString() || '',
+        tutorial: game.tutorial || '',
+        images: game.images || '' // Assuming this holds the image path
     });
-            console.log("Form data: ", formData)
 
-    // useEffect(() => {
-    //     console.log("User: ", user)
-    //     setFormData({
-    //         name: user.name,
-    //         email: user.email,
-    //         password: user.password,
-    //         phone: user.phone,
-    //         role: user.role,
-    //         status: user.status
-    //       });
-    // }, []);
+    const [file, setFile] = useState(null);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target; 
         setFormData({ ...formData, [name]: value });
+    };
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
-            console.log
-            await onSave(formData);
+            let imagePath = formData.images;
+
+            if (file) {
+                const response = await uploadGameImage(file); 
+                imagePath = response.data.data; 
+            }
+            
+            
+            const updatedFormData = {
+                ...formData,
+                images: imagePath,
+                exchange_allow: formData["exchange_allow"] === true,
+            };
+
+            await onSave(updatedFormData);
         } catch (error) {
-            console.error('Error updating user:', error);
+            console.error('Error updating game:', error);
         }
     };
 
     return (
-        <div className="user-details-edit">
+        <div className="game-details-edit">
             <form onSubmit={handleSubmit}>
                 {Object.keys(formData).map((key) => (
-                    <Input
-                        key={key}
-                        name={key}
-                        lable={key.charAt(0).toUpperCase() + key.slice(1)}
-                        type={(key === 'role' || key === 'status') ? 'select' : 'text'} // Assuming 'role' is a select type
-                        value={formData[key]}
-                        onChange={handleChange}
-                        options={key === 'role' ? [
-                            { label: 'Admin', value: 'admin' },
-                            { label: 'End User', value: 'end_user' },
-                            { label: 'Enterprise', value: 'enterprise' }
-                        ] : key === 'status' ? [
-                            { label: 'Active', value: 'active' },
-                            { label: 'Inactive', value: 'inactive' }
-                        ] : []}
-                    />
+                    key !== 'images' ? (
+                        <Input
+                            key={key}
+                            name={key}
+                            label={key.charAt(0).toUpperCase() + key.slice(1)}
+                            type={(key === 'exchange_allow') ? 'select' : 'text'}
+                            value={formData[key]}
+                            onChange={handleChange}
+                            options={key === 'exchange_allow' ? [
+                                { label: 'True', value: 'true' },
+                                { label: 'False', value: 'false' },
+                            ] : undefined}
+                        />
+                    ) : (
+                        <div key={key} className="input-file">
+                            <label htmlFor="images">{`Upload Image`}</label>
+                            <input
+                                type="file"
+                                name="images"
+                                id="images"
+                                onChange={handleFileChange}
+                            />
+                        </div>
+                    )
                 ))}
-                <div style= {{marginTop: 20}}>
-                    <CustomButton  type={"submit"} content={"Save"} ></CustomButton>
-                    <CustomButton type={"submit"} content={"Cancel"} onClickHandle={onCancel} ></CustomButton>
+                <div style={{ marginTop: 20 }}>
+                    <CustomButton type="submit" content="Save" />
+                    <CustomButton type="button" content="Cancel" onClickHandle={onCancel} />
                 </div>
-                
             </form>
         </div>
     );
 }
 
-export default UserDetailsEdit;
+export default GameDetailsEdit;
