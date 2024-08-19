@@ -1,16 +1,16 @@
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
-import { BackEndAddress, deleteEvent, getAllEvents } from '../../api';
-import './events.scss';
+import { BackEndAddress, getAllEnterprises } from '../../api';
+import './enterprise.scss';
 
-const EventDataGrid = () => {
-  const [events, setEvents] = useState([]);
+const EnterpriseDataGrid = () => {
+  const [enterprises, setEnterprises] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getAllEvents()
+    getAllEnterprises()
       .then(response => {
-        setEvents(response.data.data);
+        setEnterprises(response.data.data);
         setLoading(false);
       })
       .catch(error => {
@@ -21,30 +21,21 @@ const EventDataGrid = () => {
   
 
 
-  const handleDlt = (id) => {
-    if (!window.confirm('Do you want delete this event ?')) {
-      return;
-    }
-
-    deleteEvent(id)
-      .then(() => {
-        setEvents((prevEvents) => prevEvents.filter(event => event.id !== id));
-      })
-      .catch(error => {
-        console.error('error when delete user:', error);
-      });
-  };
-
   const columns = [
     { field: 'images', headerName: 'Image', width: 100,
       renderCell: (param) => (
-          <img src={`${BackEndAddress}/image/event/${param.row.images}`} alt="event" className="event event_image" />
+          <img src={`${BackEndAddress}/image/Enterprise/${param.row.images}`} alt="enterprise" className="enterprise enterprise_image" />
       ),
   },
     { field: 'id', headerName: 'ID', width: 300 },
     { field: 'name', headerName: 'Name', width: 300 },
-    { field: 'voucher_num', headerName: 'Number of Voucher', width: 300 },
-    { field: 'game_name', headerName: 'Game', width: 300 },
+    { field: 'field', headerName: 'Field', width: 300 },
+    { field: 'location', headerName: 'Location', width: 300 },
+    { field: 'status', headerName: 'Status', width: 100,
+      renderCell: (param) => (
+          <div className={`status ${param.row.status}`}>{param.row.status}</div>
+      ),
+  },
     {
         field: 'action',
         headerName: 'Action',
@@ -70,9 +61,9 @@ const EventDataGrid = () => {
 
   return (
     <div style={{ height: 400, width: '100%' }}>
-      <h2>Event Lists</h2>
+      <h2>Enterprise Lists</h2>
       <DataGrid
-        rows={events}
+        rows={enterprises}
         columns={columns}
         pageSize={5}
         rowsPerPageOptions={[5, 10, 20]}
@@ -82,4 +73,4 @@ const EventDataGrid = () => {
   );
 };
 
-export default EventDataGrid;
+export default EnterpriseDataGrid;

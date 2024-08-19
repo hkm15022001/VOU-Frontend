@@ -52,12 +52,24 @@ export const getUser = (identity) => API.get(`/admin/user/${identity}`);
 export const createUser = (newUser) => API.post('/admin/user', newUser);
 export const updateUser = (identity, updatedUser) => API.put(`/admin/user/${identity}`, updatedUser);
 export const deleteUser = (identity) => API.delete(`/admin/user/${identity}`);
-// ----------------------------User (staff) --------------------------
+// ----------------------------Games--------------------------
 export const getAllGames = () => API.get('/admin/game');
 export const getGame = (identity) => API.get(`/admin/game/${identity}`);
 export const createGame = (newGame) => API.post('/admin/game', newGame);
 export const updateGame = (identity, updatedGame) => API.put(`/admin/game/${identity}`, updatedGame);
 export const deleteGame = (identity) => API.delete(`/admin/game/${identity}`);
+// ----------------------------Events--------------------------
+export const getAllEvents = () => API.get('/admin/event');
+export const getEvent = (identity) => API.get(`/event/${identity}`);
+export const createEvent = (newEvent) => API.post('/event', newEvent);
+export const updateEvent = (identity, updatedEvent) => API.put(`/event/${identity}`, updatedEvent);
+export const deleteEvent = (identity) => API.delete(`/event/${identity}`);
+// ----------------------------Enterprise--------------------------
+export const getAllEnterprises = () => API.get('/admin/enterprise');
+// export const getEnterprise = (identity) => API.get(`/enterprise/${identity}`);
+// export const createEnterprise = (newEnterprise) => API.post('/enterprise', newEnterprise);
+// export const updateEnterprise = (identity, updatedEnterprise) => API.put(`/enterprise/${identity}`, updatedEnterprise);
+// export const deleteEnterprise = (identity) => API.delete(`/enterprise/${identity}`);
 // ---------------------------- Auth --------------------------
 // export const getAllUsers = () => API.get('/login');
 // ---------------------------- Statistics --------------------------

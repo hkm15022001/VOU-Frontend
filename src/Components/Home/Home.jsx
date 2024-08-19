@@ -71,7 +71,7 @@ function Home() {
                     (<div className="home_items">
                     <ItemLists type="user" count={countUsers}/>
                     <ItemLists type="games" count={countGames}/>
-                    <ItemLists type="events" count={22}/>
+                    <ItemLists type="events" count={4}/>
                     <ItemLists type="enterprise" count={countEnterprises}/>
                 </div>)
                 }

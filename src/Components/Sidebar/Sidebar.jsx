@@ -56,9 +56,11 @@ function Sidebar() {
                             <EventAvailableIcon className="icon" /> Events
                         </li>
                     </Link>
-                    <li>
-                        <HandshakeIcon className="icon" /> Enterprise
-                    </li>
+                    <Link to="/enterprise" style={{ textDecoration: 'none' }}>
+                        <li>
+                            <HandshakeIcon className="icon" /> Enterprise
+                        </li>
+                    </Link>
                     <li>
                         <BarChartIcon className="icon" /> Status
                     </li>
@@ -70,7 +72,7 @@ function Sidebar() {
                     <li>
                         <SettingsRoundedIcon className="icon" /> Setting
                     </li>
-                    <Button className="logout"  color="inherit" variant="outlined" onClick={handleLogout}>
+                    <Button className="logout" color="inherit" variant="outlined" onClick={handleLogout}>
                         <li>
                             <LogoutIcon className="icon" /> Log Out
                         </li>

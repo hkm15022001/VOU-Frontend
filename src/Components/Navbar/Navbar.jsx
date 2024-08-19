@@ -127,9 +127,11 @@ function Navbar() {
                                             <EventAvailableIcon className="icon" /> Events
                                         </li>
                                     </Link>
-                                    <li>
-                                        <HandshakeIcon className="icon" /> Enterprise
-                                    </li>
+                                    <Link to="/enterprise" style={{ textDecoration: 'none' }}>
+                                        <li>
+                                            <HandshakeIcon className="icon" /> Enterprise
+                                        </li>
+                                    </Link>
                                     <li>
                                         <BarChartIcon className="icon" /> Status
                                     </li>

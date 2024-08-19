@@ -1,11 +1,9 @@
 import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ColorContext } from './ColorContext/darkContext';
-import Events from './Components/Events/Events';
 import Home from './Components/Home/Home';
 import AddNew from './Pages/AddNew/AddNew';
 import BlogDetail from './Pages/BlogDetail/BlogDetail';
-import Blogs from './Pages/Blogs/Blogs';
 import GameDetail from './Pages/GameDetail/GameDetail';
 import Lists from './Pages/Lists/Lists';
 import Login from './Pages/Login/Login';
@@ -174,7 +172,7 @@ function App() {
                             />
                         </Route>
 
-                        <Route path="events" element={<Events />} />
+                        <Route path="events" element={<Lists type="events" />} />
 
                         {/* nested routes */}
                         <Route path="games">
@@ -192,8 +190,8 @@ function App() {
                             />
                         </Route>
 
-                        <Route path="blogs">
-                            <Route index element={<Blogs type="blog" />} />
+                        <Route path="enterprise">
+                            <Route index element={<Lists type="enterprise" />} />
                             <Route path=":blogId" element={<BlogDetail />} />
                             <Route
                                 path="addnew"
