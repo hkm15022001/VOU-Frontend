@@ -1,6 +1,5 @@
 import React from 'react';
 import { Area, AreaChart, CartesianGrid, Tooltip, XAxis } from 'recharts';
-
 // import css file
 import './chart.scss';
 
@@ -40,6 +39,7 @@ a data point and has two properties: `name` and `total`. */
 
 function Chart({ data, height, title ,marginBottom}) {
     const bottomSpace = marginBottom || 0;
+
     return (
         <div className="chart_sec">
             <div>

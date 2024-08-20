@@ -87,7 +87,7 @@ function ItemLists({ type, count }) {
                     />
                 ),
                 link: 'See all details',
-                linkto: '/',
+                linkto: '/enterprise',
                 percent: "10%"
 
             };
