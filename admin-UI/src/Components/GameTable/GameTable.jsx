@@ -19,7 +19,7 @@ const GameDataGrid = () => {
         setLoading(false);
       });
   }, []);
-  
+
 
 
   const handleDlt = (id) => {
@@ -37,40 +37,42 @@ const GameDataGrid = () => {
   };
 
   const columns = [
-    { field: 'image', headerName: 'Image', width: 100,
+    {
+      field: 'image', headerName: 'Image', width: 100,
       renderCell: (param) => (
-          <img src={`${BackEndAddress}/image/game/${param.row.images}`} alt="game" className="game game_image" />
+        <img src={`${BackEndAddress}/image/game/${param.row.images}`} alt="game" className="game game_image" />
       ),
-  },
+    },
     { field: 'id', headerName: 'ID', width: 300 },
-    { field: 'name', headerName: 'Name', width: 300 },
-    { field: 'type', headerName: 'Type', width: 150 },
+    { field: 'name', headerName: 'Name', width: 250 },
+    { field: 'type', headerName: 'Type', width: 100 },
     { field: 'tutorial', headerName: 'Tutorial', width: 250 },
-    { field: 'exchange_allow', headerName: 'ExchangeAllow', width: 200,
-        renderCell: (param) => (
-            <div className={`status ${param.row.exchange_allow}`}>{param.row.exchange_allow.toString()}</div>
-        ),
+    {
+      field: 'exchange_allow', headerName: 'ExchangeAllow', width: 100,
+      renderCell: (param) => (
+        <div className={`status ${param.row.exchange_allow}`}>{param.row.exchange_allow.toString()}</div>
+      ),
     },
     {
-        field: 'action',
-        headerName: 'Action',
-        width: 170,
-        renderCell: (params) => (
-            <div className="actionn">
-                <Link to={params.row.id}>
-                    <button type="button" className="view_btn">
-                        View
-                    </button>
-                </Link>
-                <button
-                    type="button"
-                    className="delete_btn"
-                    onClick={() => handleDlt(params.row.id)}
-                >
-                    Delete
-                </button>
-            </div>
-        ),
+      field: 'action',
+      headerName: 'Action',
+      width: 150,
+      renderCell: (params) => (
+        <div className="actionn">
+          <Link to={params.row.id}>
+            <button type="button" className="view_btn">
+              View
+            </button>
+          </Link>
+          <button
+            type="button"
+            className="delete_btn"
+            onClick={() => handleDlt(params.row.id)}
+          >
+            Delete
+          </button>
+        </div>
+      ),
     },
   ];
 

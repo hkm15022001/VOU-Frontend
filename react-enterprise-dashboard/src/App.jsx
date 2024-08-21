@@ -3,146 +3,57 @@ import { Route, Routes } from 'react-router-dom';
 import { ColorContext } from './ColorContext/darkContext';
 import Home from './Components/Home/Home';
 import AddNew from './Pages/AddNew/AddNew';
-import BlogDetail from './Pages/BlogDetail/BlogDetail';
-import GameDetail from './Pages/GameDetail/GameDetail';
+import EventDetails from './Pages/EventDetail/EventDetail.jsx';
 import Lists from './Pages/Lists/Lists';
-import Login from './Pages/Login/Login';
-import UserDetailsPage from './Pages/UserDetail/UserDetailsPage';
+import Profile from './Pages/Profile/Profile.jsx'
 import './app.scss';
 
 // Dynamicaly change the data for different pages(replaceable)
-const userInpDetails = [
-    {
-        id: 2,
-        name: 'username',
-        label: 'Username',
-        type: 'text',
-        placeholder: 'John23',
-        required: true,
-        pattern: '^[A-Za-z0-9]{3,12}$',
-        errorMsg: 'Username should be 3-12 characters & should not include any special character!',
-    },
-    {
-        id: 3,
-        name: 'name',
-        label: 'Name',
-        type: 'text',
-        placeholder: 'John Smith',
-        required: true,
-        pattern: '^[A-Za-z]{1,20}$',
-        errorMsg: 'Name is required!',
-    },
-    {
-        id: 4,
-        name: 'email',
-        label: 'Email',
-        type: 'email',
-        placeholder: 'example@email.com',
-        required: true,
-        errorMsg: 'Enter a valid email!',
-    },
-    {
-        id: 5,
-        name: 'password',
-        label: 'Password',
-        type: 'password',
-        placeholder: 'Password',
-        required: true,
-        pattern: '^(?=.*[0-9])(?=.*[A-Za-z])(?=.*[!@#$%^&*()_+])[A-Za-z0-9!@#$%^&*()_+]{6,20}$',
-        errorMsg:
-            'Password should be 6-20 characters and include at last 1 num, 1 letter, 1 special character!',
-    },
-    {
-        id: 6,
-        name: 'phone',
-        label: 'Phone',
-        type: 'text',
-        placeholder: 'Phone',
-        required: true,
-        errorMsg: 'Phone is required!',
-    },
-    {
-        id: 7,
-        label: "Role",
-        type: "select",
-        name: "role",
-        options: [
-            { label: 'Admin', value: 'admin' },
-            { label: 'End User', value: 'end_user' },
-            { label: 'Enterprise', value: 'enterprise' },
-        ],
-        errorMsg: "Please select an option",
-        required: true,
-    }
-];
-const gameInpDetails = [
-    {
-        id: 2,
-        name: 'name',
-        label: 'Name',
-        type: 'text',
-        placeholder: 'Name of Game',
-        required: true,
-        errorMsg: 'Name of Game is required!',
-    },
-    {
-        id: 3,
-        name: 'type',
-        label: 'Type',
-        type: 'text',
-        placeholder: 'Type of Game',
-        required: true,
-        errorMsg: 'Type of Game is required!',
-    },
-    {
-        id: 4,
-        label: "Exchange Allow",
-        type: "select",
-        name: "exchange_allow",
-        options: [
-            { label: 'True', value: true },
-            { label: 'False', value: false },
-        ],
-        errorMsg: "Please select an option",
-        required: true,
-    },
-    {
-        id: 5,
-        name: 'tutorial',
-        label: 'Tutorial',
-        type: 'text',
-        placeholder: 'Tutorial',
-        required: true,
-        errorMsg: 'Tutorial is required!',
-    },
-];
-const blogInputs = [
+const eventInpDetails = [
     {
         id: 1,
-        name: 'title',
-        label: 'Title',
+        name: 'name',
+        label: 'Name',
         type: 'text',
-        placeholder: 'Blog title',
+        placeholder: 'Name of Event',
         required: true,
-        errorMsg: 'Title is required!',
+        errorMsg: 'Name of Event is required!',
     },
     {
         id: 2,
-        name: 'description',
-        label: 'Description',
-        type: 'text',
-        placeholder: 'Blog description',
+        name: 'voucher_num',
+        label: 'Voucher Number',
+        type: 'number',
+        placeholder: 'Voucher Number',
         required: true,
-        errorMsg: 'Description is required!',
+        errorMsg: 'Voucher Number is required!',
     },
     {
         id: 3,
-        name: 'tags',
-        label: 'Tags',
-        type: 'text',
-        placeholder: 'Travel, Communication',
+        name: 'start_time',
+        label: 'Start Time',
+        type: 'datepicker',
+        placeholder: 'Select start time',
         required: true,
-        errorMsg: 'Tag is required!',
+        errorMsg: 'Start time is required!',
+    },
+    {
+        id: 4,
+        name: 'end_time',
+        label: 'End Time',
+        type: 'datepicker',
+        placeholder: 'Select end time',
+        required: true,
+        errorMsg: 'End time is required!',
+    },
+    {
+        id: 5,
+        name: 'game_id',
+        label: 'Game',
+        type: 'select',
+        placeholder: 'Select game',
+        required: true,
+        errorMsg: 'Game selection is required!',
     },
 ];
 
@@ -152,56 +63,26 @@ function App() {
 
     return (
         <div className={darkMode ? 'App dark' : 'App'}>
-                <Routes>
-                    <Route path="/">
-                        <Route index element={<Home />} />
-                        <Route path="login" element={<Login />} />
-                        {/* nested routes */}
-                        <Route path="users">
-                            <Route index element={<Lists type="users" />} />
-                            <Route path=":userId" element={<UserDetailsPage  />} />
-                            <Route
-                                path="addnew"
-                                element={
-                                    <AddNew
-                                        inputs={userInpDetails}
-                                        titlee="Add New User"
-                                        type="USER"
-                                    />
-                                }
-                            />
-                        </Route>
-
-                        <Route path="events" element={<Lists type="events" />} />
-
-                        {/* nested routes */}
-                        <Route path="games">
-                            <Route index element={<Lists type="games" />} />
-                            <Route path=":gameId" element={<GameDetail />} />
-                            <Route
-                                path="addnew"
-                                element={
-                                    <AddNew
-                                        inputs={gameInpDetails}
-                                        titlee="Add New Game"
-                                        type="GAME"
-                                    />
-                                }
-                            />
-                        </Route>
-
-                        <Route path="enterprise">
-                            <Route index element={<Lists type="enterprise" />} />
-                            <Route path=":blogId" element={<BlogDetail />} />
-                            <Route
-                                path="addnew"
-                                element={
-                                    <AddNew inputs={blogInputs} titlee="Add New Blog" type="BLOG" />
-                                }
-                            />
-                        </Route>
+            <Routes>
+                <Route path="/">
+                    <Route index element={<Home />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="events">
+                        <Route index element={<Lists type="events" />} />
+                        <Route path=":eventId" element={<EventDetails />} />
+                        <Route
+                            path="addnew"
+                            element={
+                                <AddNew
+                                    inputs={eventInpDetails}
+                                    titlee="Add New Event"
+                                    type="EVENT"
+                                />
+                            }
+                        />
                     </Route>
-                </Routes>
+                </Route>
+            </Routes>
         </div>
     );
 }

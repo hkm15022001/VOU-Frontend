@@ -24,22 +24,18 @@ function Lists({ type }) {
                 {/* mui data table */}
                 <div className="data_table">
                     <div className="btnn">
-                        {(type === 'users' || type === 'games') ? 
-                            <Link
-                            to={`/${type === 'games' ? 'games': 'users'}/addnew`}
+                        <Link
+                            to={`/${type === 'events' ? 'events' : 'users'}/addnew`}
                             style={{ textDecoration: 'none' }}
-                            >
+                        >
                             <button type="button">Add New {type}</button>
-                            </Link>
-                        :  undefined      
-                        }
-                        
+                        </Link>
                     </div>
 
                     {type === 'users' ? <UserDataGrid />
                         : type === 'games' ? <GameDataGrid />
                             : type === 'events' ? <EventDataGrid />
-                                : < EnterpriseDataGrid/>}
+                                : < EnterpriseDataGrid />}
 
 
 

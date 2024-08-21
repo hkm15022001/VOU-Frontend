@@ -7,9 +7,9 @@ import Chart from '../../Components/Chart/Chart';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import TableList from '../../Components/TransactionList/TransactionList';
-import { BackEndAddress, getGame, updateGame } from '../../api';
-import GameDetailsEdit from '../GameEdit/GameEdit';
-import './GameDetail.scss';
+import { BackEndAddress, getEvent, updateEvent } from '../../api';
+import EventDetailsEdit from '../EventEdit/EventEdit';
+import './eventDetail.scss';
 
 // import dummy image
 import book1 from '../../Images/book1.jpg';
@@ -17,6 +17,7 @@ import book2 from '../../Images/book2.jpg';
 import book3 from '../../Images/book3.jpg';
 import book4 from '../../Images/book4.jpg';
 import book5 from '../../Images/book5.jpg';
+
 const data = [
     {
         day: '03/08/2024',
@@ -50,26 +51,6 @@ const data = [
 
 const data2 = [
     {
-        _id: 23423343,
-        game: 'Cầu nguyện cùng sao băng',
-        image: book1,
-        customer: 'DUONGHDT',
-        date: '3 October, 2024',
-        score: "Mảnh ghép 1",
-        enterprise: 'Shopee',
-        status: 'Approved',
-    },
-    {
-        _id: 235343343,
-        game: 'Cầu nguyện cùng sao băng',
-        image: book2,
-        customer: 'Hungdq30',
-        date: '23 April, 2024',
-        score: "Mảnh ghép 2",
-        enterprise: 'Grab',
-        status: 'Pending',
-    },
-    {
         _id: 234239873,
         game: 'Thử thách trí tuệ',
         image: book3,
@@ -77,16 +58,6 @@ const data2 = [
         date: '10 October, 2024',
         score: 25,
         enterprise: 'Bee',
-        status: 'Approved',
-    },
-    {
-        _id: 23423143,
-        game: 'Cầu nguyện cùng sao băng',
-        image: book4,
-        customer: 'Minh',
-        date: '3 March, 2024',
-        score: "Mảnh ghép 5",
-        enterprise: 'Garena',
         status: 'Approved',
     },
     {
@@ -110,20 +81,20 @@ const data2 = [
         status: 'Pending',
     },
 ];
-function GameDetail() {
+function EventDetail() {
     // const { userId, productId } = useParams();
-    const { gameId } = useParams();
-    const [game, setGame] = useState(null);
+    const { eventId } = useParams();
+    const [event, setEvent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [editing, setEditing] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchGame = async () => {
+        const fetchEvent = async () => {
             try {
-                const gameData = await getGame(gameId);
-                setGame(gameData.data.data);
+                const eventData = await getEvent(eventId);
+                setEvent(eventData.data.data);
                 setLoading(false);
             } catch (err) {
                 setError(err);
@@ -131,16 +102,16 @@ function GameDetail() {
             }
         };
 
-        fetchGame();
-    }, [gameId]);
+        fetchEvent();
+    }, [eventId]);
 
-    const handleSave = async (updatedGame) => {
+    const handleSave = async (updatedEvent) => {
         try {
-            // console.log(updatedgame)
-            await updateGame(gameId, updatedGame);
-            setGame(updatedGame);
+            // console.log(updatedevent)
+            await updateEvent(eventId, updatedEvent);
+            setEvent(updatedEvent);
             setEditing(false);
-            navigate('/games'); // Điều hướng về trang danh sách người dùng
+            navigate('/events'); // Điều hướng về trang danh sách người dùng
         } catch (error) {
             setError(error);
         }
@@ -154,11 +125,11 @@ function GameDetail() {
         setEditing(false);
     };
 
-    if (loading) return  (
-        <Box sx={{ display: 'flex', justifyContent: 'center'}}>
-          <CircularProgress />
+    if (loading) return (
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <CircularProgress />
         </Box>
-      );
+    );
     if (error) return <p>Error: {error.message}</p>;
     return (
         <div className="details">
@@ -169,41 +140,43 @@ function GameDetail() {
             <div className="detail_page_main">
                 <Navbar />
 
-                <div className="game_info">
+                <div className="event_info">
                     {editing ? (
-                        <GameDetailsEdit  onSave={handleSave} onCancel={handleCancel} game={{
-                            name: game.name,
-                            images: game.images,
-                            tutorial: game.tutorial,
-                            type: game.type,
-                            exchange_allow: game.exchange_allow
-                          }}/>
+                        <EventDetailsEdit onSave={handleSave} onCancel={handleCancel} event={{
+                            name: event.name,
+                            images: event.images,
+                            voucher_num: event.voucher_num,
+                            start_time: event.start_time,
+                            end_time: event.end_time,
+                            game_name: event.game_name
+                        }} />
                     ) :
-                    (<div className="game_detail">
-                        <img src={`${BackEndAddress}/image/game/${game.images}`} alt="game" className="game_image" />
-                        <div className="game_detailss">
-                            <p className="name">{game.name}</p>
-                            <p>Type: {game.type}</p>
-                            <p>ExchangeAllow: {game.exchange_allow.toString()}</p>
-                            <p>Tutorial: {game.tutorial}</p>
+                        (<div className="event_detail">
+                            <img src={`${BackEndAddress}/image/event/${event.images}`} alt="event" className="event_image" />
+                            <div className="event_detailss">
+                                <p className="name">{event.name}</p>
+                                <p>Number of Vouchers: {event.voucher_num}</p>
+                                <p>Start Time: {event.start_time.split('T')[0]}</p>  
+                                <p>End Time: {event.end_time.split('T')[0]}</p>
+                                <p>Game: {event.game_name}</p>
+                            </div>
+                            <CustomButton type={"button"} content={"Edit"} onClickHandle={handleEdit}></CustomButton>
                         </div>
-                        <CustomButton type={"button"} content={"Edit"} onClickHandle={handleEdit}></CustomButton>
-                    </div>
-                    )}
+                        )}
 
-                    <div className="game_chart">
+                    <div className="event_chart">
                         <Chart data={data} height={390} title="Number of plays" />
                     </div>
                 </div>
 
                 <div className="table">
-                    <div className="title">Events List</div>
-                    <TableList data={data2}/>
+                    <div className="title">History</div>
+                    <TableList data={data2} />
                 </div>
             </div>
-            
+
         </div>
     );
 }
 
-export default GameDetail;
+export default EventDetail;

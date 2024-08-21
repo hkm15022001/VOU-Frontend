@@ -11,8 +11,8 @@ import './progressBar.scss';
 
 function ProgressBar() {
     const data01 = [
-        { name: 'Cầu nguyện cùng sao băng', value: 40 },
-        { name: 'Thử thách trí tuệ', value: 60 },
+        { name: 'Event Summer 2', value: 43 },
+        { name: 'mua he', value: 57 },
     ];
     const renderCustomLabel = ({ name, percent, x, y }) => {
         return (
@@ -28,11 +28,11 @@ function ProgressBar() {
             </Text>
         );
     };
-    
+
     return (
         <div className="progress_bar">
             <div className="top">
-                <p>Total number of rounds played in month</p>
+                <p>Total number of used voucher in week</p>
                 <MoreVertOutlinedIcon />
             </div>
 
@@ -57,27 +57,8 @@ function ProgressBar() {
                 <p>Total number of rounds played today.</p>
                 <p className="price">
                     <GradeIcon style={{ fontSize: '32px' }} />
-                    52
+                    10
                 </p>
-            </div>
-
-            <div className="bottom">
-                <p>Previous transection processing. Last payments may not be included.</p>
-
-                <div className="botom_nested">
-                    <div className="nested_nested">
-                        <p>Last Week</p>
-                        <p className="pricee">
-                            <KeyboardArrowUpOutlinedIcon /> 347
-                        </p>
-                    </div>
-                    <div className="nested_nested">
-                        <p>Last Month</p>
-                        <p className="pricee decrese">
-                            <KeyboardArrowUpOutlinedIcon /> 1354
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
     );

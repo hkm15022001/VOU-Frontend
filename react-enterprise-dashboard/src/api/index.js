@@ -35,10 +35,10 @@ API.interceptors.response.use(
         return res;
     },
     (err) => {
-        if (err.response.status === 401 || err.response.status === 403) {
-            localStorage.removeItem('accessToken');
-            window.location.href = '/login';
-        }
+        // if (err.response.status === 401 || err.response.status === 403) {
+        //     localStorage.removeItem('accessToken');
+        //     window.location.href = '/login';
+        // }
         return Promise.reject(err);
     }
 );
@@ -59,15 +59,15 @@ export const createGame = (newGame) => API.post('/admin/game', newGame);
 export const updateGame = (identity, updatedGame) => API.put(`/admin/game/${identity}`, updatedGame);
 export const deleteGame = (identity) => API.delete(`/admin/game/${identity}`);
 // ----------------------------Events--------------------------
-export const getAllEvents = () => API.get('/admin/event');
+export const getAllEvents = () => API.get('/event');
 export const getEvent = (identity) => API.get(`/event/${identity}`);
 export const createEvent = (newEvent) => API.post('/event', newEvent);
 export const updateEvent = (identity, updatedEvent) => API.put(`/event/${identity}`, updatedEvent);
 export const deleteEvent = (identity) => API.delete(`/event/${identity}`);
 // ----------------------------Enterprise--------------------------
 export const getAllEnterprises = () => API.get('/admin/enterprise');
-// export const getEnterprise = (identity) => API.get(`/enterprise/${identity}`);
-// export const createEnterprise = (newEnterprise) => API.post('/enterprise', newEnterprise);
+export const getEnterprise = () => API.get(`/enterprise`);
+export const createEnterprise = (newEnterprise) => API.post('/enterprise', newEnterprise);
 // export const updateEnterprise = (identity, updatedEnterprise) => API.put(`/enterprise/${identity}`, updatedEnterprise);
 // export const deleteEnterprise = (identity) => API.delete(`/enterprise/${identity}`);
 // ---------------------------- Auth --------------------------
@@ -89,6 +89,17 @@ export const uploadGameImage = (file) => {
     formData.append('image', file);
 
     return API.post('/image/game/upload', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+};
+
+export const uploadEventImage = (file) => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return API.post('/image/event/upload', formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

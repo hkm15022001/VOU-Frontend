@@ -2,73 +2,73 @@
   display: grid;
   grid-template-columns: 17% 83%;
   justify-content: center;
+  gap: 20px;
 
   .new_page {
     .new_page_main {
       padding: 20px 25px;
       .new_page_content {
-        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+        box-shadow: 2px 4px 10px rgba(201, 201, 201, 0.47);
         display: grid;
-        grid-template-columns: 37% 60%;
-        justify-content: center;
-        gap: 10;
+        grid-template-columns: 40% 60%;
+        gap: 20px;
         padding: 20px;
-        border-radius: 4px;
+        border-radius: 8px;
+        background-color: #fff;
 
         .image {
-          flex: 4;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
 
           .add_new_user {
-            color: rgba(128, 128, 128, 0.603);
-            font-size: 25px;
-            margin-right: auto;
+            color: rgba(128, 128, 128, 0.8);
+            font-size: 24px;
+            margin-bottom: 20px;
           }
 
           img {
             height: 150px;
             width: 150px;
-            background-color: rgba(128, 128, 128, 0.288);
+            background-color: rgba(128, 128, 128, 0.2);
             object-fit: cover;
-            margin-top: 20px;
             border-radius: 50%;
-            margin-left: 30%;
           }
         }
 
         .form {
-          flex: 8;
           display: grid;
-          grid-template-columns: 45% 45%;
-          justify-content: space-around;
-          grid-gap: 15px;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 20px;
           position: relative;
 
           .form_inp {
+            display: flex;
+            flex-direction: column;
             label {
-              display: flex;
-              align-items: center;
+              margin-bottom: 5px;
+              font-weight: bold;
             }
             .file_icon {
               cursor: pointer;
-              margin-left: 10px;
-              font-size: 30px;
+              font-size: 24px;
+              color: #7451f8;
             }
           }
 
           .submit_btn {
-            margin-top: 15px;
-            display: block;
-            width: 200px;
-            padding: 9px 15px;
+            align-self: center;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 200px;
+            padding: 10px;
             border: none;
-            background: none;
             background-color: #7451f8;
-            border: 1px solid #7451f8;
             color: white;
-            font-size: 17px;
+            font-size: 16px;
             border-radius: 4px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
 
             &:hover {
               background-color: white;
@@ -84,9 +84,7 @@
 
 @media screen and (max-width: 992px) {
   .add_new {
-    display: grid;
     grid-template-columns: 100%;
-    justify-content: center;
 
     .home_sidebar {
       display: none;
@@ -99,10 +97,8 @@
     .new_page {
       .new_page_main {
         .new_page_content {
-          display: grid;
-          grid-template-columns: 95%;
-          justify-content: center;
-          gap: 40px;
+          grid-template-columns: 1fr;
+          gap: 30px;
         }
       }
     }

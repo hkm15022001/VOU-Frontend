@@ -9,7 +9,7 @@ import './itemlists.scss';
 
 function ItemLists({ type, count }) {
     let data;
-    
+
     // Dynamicaly change the ui content
     switch (type) {
         case 'user':
@@ -66,7 +66,7 @@ function ItemLists({ type, count }) {
                         className="icon"
                     />
                 ),
-                link: 'See all games',
+                link: 'See all',
                 linkto: '/games',
                 percent: "0%"
 

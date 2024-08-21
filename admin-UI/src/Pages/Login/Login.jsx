@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+
 
 function Copyright(props) {
   return (
@@ -50,6 +52,7 @@ export default function SignInSide() {
       localStorage.setItem('accessToken', res.data.data.access_token);
       navigate('/');
     } catch (err) {
+      toast.error(`Error login: ${err.response.data?.message || 'Please try again!'}`);
       console.error(err);
     }
   };
@@ -144,6 +147,8 @@ export default function SignInSide() {
           </Box>
         </Grid>
       </Grid>
+      <ToastContainer />
     </ThemeProvider>
+
   );
 }

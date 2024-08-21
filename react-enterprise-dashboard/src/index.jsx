@@ -13,7 +13,7 @@ const isAuthenticated = () => {
 };
 
 const ProtectedRoute = ({ element }) => {
-    return isAuthenticated() ? element : <Navigate to="/login" replace />;
+    return isAuthenticated() ? element : <Navigate to="/login" replace />;  //<Navigate to="/login" replace />
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

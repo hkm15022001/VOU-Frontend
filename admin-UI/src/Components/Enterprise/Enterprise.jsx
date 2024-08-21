@@ -2,7 +2,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { BackEndAddress, getAllEnterprises } from '../../api';
 import './enterprise.scss';
-
+import image from '../../Images/book1.jpg'
 const EnterpriseDataGrid = () => {
   const [enterprises, setEnterprises] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,44 +18,46 @@ const EnterpriseDataGrid = () => {
         setLoading(false);
       });
   }, []);
-  
+
 
 
   const columns = [
-    { field: 'images', headerName: 'Image', width: 100,
+    {
+      field: 'images', headerName: 'Image', width: 100,
       renderCell: (param) => (
-          <img src={`${BackEndAddress}/image/Enterprise/${param.row.images}`} alt="enterprise" className="enterprise enterprise_image" />
+        <img src={image} alt="enterprise" className="enterprise enterprise_image" />
       ),
-  },
+    },
     { field: 'id', headerName: 'ID', width: 300 },
     { field: 'name', headerName: 'Name', width: 300 },
     { field: 'field', headerName: 'Field', width: 300 },
     { field: 'location', headerName: 'Location', width: 300 },
-    { field: 'status', headerName: 'Status', width: 100,
-      renderCell: (param) => (
-          <div className={`status ${param.row.status}`}>{param.row.status}</div>
-      ),
-  },
     {
-        field: 'action',
-        headerName: 'Action',
-        width: 100,
-        renderCell: (params) => (
-            <div className="actionn">
-                {/* <Link to={params.row.id}> */}
-                    <button type="button" className="view_btn">
-                        View
-                    </button>
-                {/* </Link> */}
-                {/* <button
+      field: 'status', headerName: 'Status', width: 100,
+      renderCell: (param) => (
+        <div className={`status ${param.row.status}`}>{param.row.status}</div>
+      ),
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      width: 100,
+      renderCell: (params) => (
+        <div className="actionn">
+          {/* <Link to={params.row.id}> */}
+          <button type="button" className="view_btn">
+            View
+          </button>
+          {/* </Link> */}
+          {/* <button
                     type="button"
                     className="delete_btn"
                     onClick={() => handleDlt(params.row.id)}
                 >
                     Delete
                 </button> */}
-            </div>
-        ),
+        </div>
+      ),
     },
   ];
 

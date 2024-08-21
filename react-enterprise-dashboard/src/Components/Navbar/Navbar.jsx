@@ -17,6 +17,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import Button from '@mui/material/Button';
+import PriceChangeIcon from '@mui/icons-material/PriceChange';
+
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ColorContext } from '../../ColorContext/darkContext';
@@ -90,10 +92,11 @@ function Navbar() {
                         <NotificationsNoneIcon className="item_icon" />
                         <span className="badge">1</span>
                     </div>
-
-                    <div className="item">
-                        <img className="admin_pic" src={admin} alt="admin" />
-                    </div>
+                    <Link to="/profile" style={{ textDecoration: 'none' }}>
+                        <div className="item">
+                            <img className="admin_pic" src={admin} alt="admin" />
+                        </div>
+                    </Link>
                 </div>
             </div>
 
@@ -111,45 +114,34 @@ function Navbar() {
                                     </Link>
 
                                     <p className="spann">lists</p>
-                                    <Link to="/users" style={{ textDecoration: 'none' }}>
+                                    <Link to="#" style={{ textDecoration: 'none' }}>
                                         <li>
-                                            <PersonIcon className="icon" /> Users
+                                            <PriceChangeIcon className="icon" /> Voucher
                                         </li>
                                     </Link>
 
-                                    <Link to="/games" style={{ textDecoration: 'none' }}>
-                                        <li>
-                                            <SportsEsportsIcon className="icon" /> Games
-                                        </li>
-                                    </Link>
                                     <Link to="/events" style={{ textDecoration: 'none' }}>
                                         <li>
                                             <EventAvailableIcon className="icon" /> Events
                                         </li>
                                     </Link>
-                                    <Link to="/enterprise" style={{ textDecoration: 'none' }}>
+                                    <p className="spann">Seetings</p>
+                                    <Link to="/profile" style={{ textDecoration: 'none' }}>
                                         <li>
-                                            <HandshakeIcon className="icon" /> Enterprise
+                                            <AccountCircleIcon className="icon" /> Profile
                                         </li>
                                     </Link>
-                                    <li>
-                                        <BarChartIcon className="icon" /> Status
-                                    </li>
 
-                                    <p className="spann">Seetings</p>
-                                    <li>
-                                        <AccountCircleIcon className="icon" /> Profile
-                                    </li>
                                     <li>
                                         <SettingsRoundedIcon className="icon" /> Setting
                                     </li>
-                                    <Button  onClick={handleLogout}>
+                                    <Button onClick={handleLogout}>
                                         <li>
                                             <LogoutIcon className="icon" /> Log Out
                                         </li>
                                     </Button>
 
-                                    
+
                                 </ul>
                             </div>
                         </div>
