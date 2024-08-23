@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
+import { login } from '../../api';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -47,7 +47,7 @@ export default function SignInSide() {
       password: data.get('password'),
     }
     try {
-      let res = await axios.post('http://34.124.217.226:7000/auth/login', payload);
+      let res = await login(payload);
       console.log(res)
       localStorage.setItem('accessToken', res.data.data.access_token);
       navigate('/');
@@ -136,11 +136,11 @@ export default function SignInSide() {
                     Forgot password?
                   </Link>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
-                </Grid>
+                </Grid> */}
               </Grid>
               <Copyright sx={{ mt: 5 }} />
             </Box>

@@ -11,12 +11,12 @@ import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import axios from 'axios';
+
 import * as React from 'react';
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
-
+import { login } from '../../api';
 
 function Copyright(props) {
   return (
@@ -45,7 +45,7 @@ export default function SignInSide() {
       password: data.get('password'),
     }
     try {
-      let res = await axios.post('http://34.124.217.226:7000/auth/login', payload);
+      let res = await login(payload);
       console.log(res)
       localStorage.setItem('accessToken', res.data.data.access_token);
       navigate('/');

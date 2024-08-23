@@ -11,6 +11,9 @@
 - CRUD functionality or management.
 - Dark & Light Mode
 
-run:
+**_ Setting URL Backend in .env _**
+cp .env.example .env
+
+**_ run .env _**
 npm install
 npm run dev

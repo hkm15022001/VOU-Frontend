@@ -17,7 +17,7 @@ import { Helmet } from "react-helmet-async";
 import LocationMap from '../../Components/LocationMap/LocationMap';
 import { toast, ToastContainer } from 'react-toastify';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import axios from 'axios';
+import { createEnterprise } from '../../api';
 
 function Copyright(props) {
   return (
@@ -68,7 +68,7 @@ export default function SignUp() {
     }
     console.log("payload: ", payload)
     try {
-      let res = await axios.post('http://34.124.217.226:7000/enterprise', payload);
+      await createEnterprise(payload);
       setOpen(true); // Show the popup when the registration is successful
     } catch (err) {
       toast.error(`Error register: ${err.response.data?.message || 'Please try again!'}`);

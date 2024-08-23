@@ -1,7 +1,7 @@
 import axios from 'axios';
-
+export const BackEndAddress = import.meta.env.VITE_API_URL;
 const API = axios.create({
-    baseURL: 'http://34.124.217.226:7000',
+    baseURL: BackEndAddress,
     //   withCredentials: true,
     // credentials: 'include'
 });
@@ -45,7 +45,6 @@ API.interceptors.response.use(
 
 export const apiInstance = API;
 
-export const BackEndAddress = 'http://34.124.217.226:7000'
 // ----------------------------User (staff) --------------------------
 export const getAllUsers = () => API.get('/admin/user');
 export const getUser = (identity) => API.get(`/admin/user/${identity}`);
@@ -71,7 +70,7 @@ export const createEnterprise = (newEnterprise) => API.post('/enterprise', newEn
 // export const updateEnterprise = (identity, updatedEnterprise) => API.put(`/enterprise/${identity}`, updatedEnterprise);
 // export const deleteEnterprise = (identity) => API.delete(`/enterprise/${identity}`);
 // ---------------------------- Auth --------------------------
-// export const getAllUsers = () => API.get('/login');
+export const login = (payload) => API.post('/auth/login', payload);
 // ---------------------------- Statistics --------------------------
 export const getCountAllUsers = () => API.get('/admin/statistic/total_users');
 export const getCountAllGames = () => API.get('/admin/statistic/total_games');
