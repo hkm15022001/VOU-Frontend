@@ -52,8 +52,8 @@ export default function SignInSide() {
       localStorage.setItem('accessToken', res.data.data.access_token);
       navigate('/');
     } catch (err) {
-      toast.error(`Error login: ${err.response.data?.message || 'Please try again!'}`);
-      console.error(err);
+      const errorMessage = err.response?.data?.message || err.message || 'Please try again!';
+      toast.error(`Error login: ${errorMessage}`);
     }
   };
 
