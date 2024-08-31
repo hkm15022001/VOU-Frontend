@@ -1,0 +1,81 @@
+.game-details-edit {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        .input-wrapper, .date-picker, .input-file {
+            margin-bottom: 20px;
+
+            label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 8px;
+                color: #333;
+            }
+
+            input, .react-datepicker-wrapper {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 14px;
+                color: #333;
+            }
+
+            .react-datepicker-wrapper {
+                .react-datepicker__input-container {
+                    input {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            input[type="file"] {
+                padding: 5px;
+            }
+        }
+
+        .input-file {
+            input {
+                padding: 0;
+            }
+        }
+
+        .custom-button-container {
+            display: flex;
+            justify-content: space-between;
+
+            .custom-button {
+                width: 48%;
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px;
+                text-align: center;
+                font-size: 14px;
+                font-weight: bold;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #0056b3;
+                }
+
+                &.cancel {
+                    background-color: #dc3545;
+
+                    &:hover {
+                        background-color: #c82333;
+                    }
+                }
+            }
+        }
+    }
+}
