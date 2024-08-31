@@ -22,6 +22,8 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import Logo from '../Logo';
+
 // Custom theme
 const theme = createTheme({
   palette: {
@@ -137,6 +139,8 @@ const styles = {
   },
 };
 
+
+
 // Layout Component
 const Layout = ({ children }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -145,13 +149,11 @@ const Layout = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+       <CssBaseline />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <AppBar position="fixed" color="transparent" elevation={0} sx={{ backdropFilter: 'blur(10px)' }}>
           <Toolbar>
-            <Typography variant="h1" component="div" sx={{ flexGrow: 1, ...styles.gradientText }}>
-              Event Gaming
-            </Typography>
+            <Logo /> {/* Replace Typography with Logo component */}
             {isMobile ? (
               <IconButton
                 color="inherit"
@@ -162,7 +164,7 @@ const Layout = ({ children }) => {
                 <MenuIcon />
               </IconButton>
             ) : (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto' }}>
                 {['Home', 'Events', 'Games', 'Contact'].map((item) => (
                   <Button 
                     key={item} 
@@ -181,7 +183,7 @@ const Layout = ({ children }) => {
                 ))}
                 <Paper
                   component="form"
-                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, ml: 2, borderRadius: '50px' }}
+                  sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300, ml: 2, borderRadius: '50px' }}
                 >
                   <InputBase
                     sx={{ ml: 1, flex: 1 }}
@@ -196,6 +198,7 @@ const Layout = ({ children }) => {
             )}
           </Toolbar>
         </AppBar>
+
 
         <Drawer
           anchor="right"

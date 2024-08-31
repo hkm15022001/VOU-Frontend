@@ -23,7 +23,9 @@ import Layout from '../../Components/EndUser/Layout';
 import slide1 from '../../Images/slide1.png'
 import slide2 from '../../Images/slide2.png'
 import slide3 from '../../Images/slide3.png'
-
+import backgroundImage from '../../Images/VOU.png';
+import EventCategory from '../../Components/EndUser/EventCategory';
+import { getAllEvents } from '../../api';
 const styles = {
   gradientText: {
     backgroundClip: 'text',
@@ -54,7 +56,7 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundImage: `url("/api/placeholder/1920/1080")`,
+    backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     '&::before': {
@@ -92,90 +94,25 @@ const styles = {
 };
 
 
-
-// Event Category Component
-const EventCategory = ({ title, description, image, icon: Icon }) => {
-  return (
-    <Grow in={true} style={{ transformOrigin: '0 0 0' }} timeout={1000}>
-      <Card sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        transition: 'all 0.3s',
-        background: 'linear-gradient(135deg, rgba(63, 81, 181, 0.8), rgba(245, 0, 87, 0.8))',
-        '&:hover': {
-          transform: 'translateY(-10px) scale(1.03)',
-          boxShadow: '0 20px 30px rgba(0, 0, 0, 0.3)',
-        },
-      }}>
-        <CardMedia
-          component="img"
-          height="160"
-          image={image}
-          alt={title}
-          sx={{
-            transition: 'all 0.3s',
-            '&:hover': {
-              transform: 'scale(1.1)',
-            },
-          }}
-        />
-        <CardContent sx={{ flexGrow: 1, position: 'relative' }}>
-          <Avatar sx={{
-            bgcolor: 'secondary.main',
-            position: 'absolute',
-            top: -28,
-            left: 16,
-            width: 56,
-            height: 56,
-            boxShadow: 3,
-          }}>
-            <Icon />
-          </Avatar>
-          <Box sx={{ mt: 3 }}>
-            <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 'bold', color: 'white' }}>
-              {title}
-            </Typography>
-            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
-              {description}
-            </Typography>
-          </Box>
-        </CardContent>
-        <CardActions sx={{ justifyContent: 'space-between', p: 2 }}>
-          <Button
-            size="small"
-            variant="contained"
-            sx={{
-              bgcolor: 'rgba(255, 255, 255, 0.2)',
-              color: 'white',
-              '&:hover': {
-                bgcolor: 'rgba(255, 255, 255, 0.3)',
-              },
-            }}
-          >
-            Learn More
-          </Button>
-          <IconButton aria-label="add to favorites" sx={{ color: 'white' }}>
-            <StarIcon />
-          </IconButton>
-        </CardActions>
-      </Card>
-    </Grow>
-  );
-};
-
 // Main App Component
-const App = () => {
+const HomeEndUser = () => {
   const adImages = [
     slide1, slide2, slide3
   ];
-
-  const eventCategories = [
-    { title: 'eSports Tournaments', description: 'Compete in thrilling online battles across popular games', image: '/api/placeholder/400/300', icon: SportsEsportsIcon },
-    { title: 'Cosplay Showcase', description: 'Bring your favorite characters to life in our cosplay events', image: '/api/placeholder/400/300', icon: GroupIcon },
-    { title: 'Board Game Nights', description: 'Strategic fun with classic and modern tabletop games', image: '/api/placeholder/400/300', icon: CasinoIcon },
-    { title: 'VR Gaming Zone', description: 'Immerse yourself in cutting-edge virtual reality experiences', image: '/api/placeholder/400/300', icon: VrIcon },
-  ];
+  const [events, setEvents] = useState([]);
+  useEffect(() => {
+    getAllEvents()
+      .then(response => {
+        // console.log(response.data.data)
+        if (response.data.data === null) {
+          return
+        }
+        setEvents(response.data.data);
+      })
+      .catch(error => {
+        console.error('error when call API:', error);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -220,12 +157,12 @@ const App = () => {
             Discover Amazing Events
           </Typography>
           <Grid container spacing={4}>
-            {eventCategories.map((category, index) => (
-              <Grid item key={index} xs={12} sm={6} md={3}>
-                <EventCategory {...category} />
-              </Grid>
-            ))}
-          </Grid>
+          {events.map((event) => (
+            <Grid item key={event.id} xs={12} sm={6} md={3}>
+              <EventCategory event={event} />
+            </Grid>
+          ))}
+        </Grid>
         </Box>
 
         <Box sx={{ textAlign: 'center', mt: 8 }}>
@@ -258,4 +195,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default HomeEndUser;

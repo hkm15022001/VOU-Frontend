@@ -1,6 +1,6 @@
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
-import { BackEndAddress, deleteEvent, getAllEvents } from '../../api';
+import { BackEndAddress, deleteEvent, getAllEventsForEnterPrise } from '../../api';
 import './events.scss';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ const EventDataGrid = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
-    getAllEvents()
+    getAllEventsForEnterPrise()
       .then(response => {
         // console.log(response.data.data)
         if (response.data.data === null) {

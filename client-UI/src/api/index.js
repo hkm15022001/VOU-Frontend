@@ -45,7 +45,8 @@ export const createGame = (newGame) => API.post('/admin/game', newGame);
 export const updateGame = (identity, updatedGame) => API.put(`/admin/game/${identity}`, updatedGame);
 export const deleteGame = (identity) => API.delete(`/admin/game/${identity}`);
 // ----------------------------Events--------------------------
-export const getAllEvents = () => API.get('/event');
+export const getAllEventsForEnterPrise = () => API.get('/event');
+export const getAllEvents = () => API.get('/admin/event');
 export const getEvent = (identity) => API.get(`/event/${identity}`);
 export const createEvent = (newEvent) => API.post('/event', newEvent);
 export const updateEvent = (identity, updatedEvent) => API.put(`/event/${identity}`, updatedEvent);
