@@ -55,7 +55,7 @@ function AddNew({ inputs, titlee, type }) {
         try {
             await call(updatedUserInp);
             setLoading(false);
-            navigate(`/${type}s`);
+            navigate(`/enterprise/${type}s`);
         } catch (error) {
             setLoading(false);
             if (error.response) {

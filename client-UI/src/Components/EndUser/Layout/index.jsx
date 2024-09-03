@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -19,6 +20,8 @@ import {
   InputBase,
   Paper,
   createTheme,
+  Avatar,
+  Tooltip
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -142,18 +145,43 @@ const styles = {
 
 
 // Layout Component
-const Layout = ({ children }) => {
+const Layout = ({ children, isLoggedIn, username }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
+
+  const handleLogin = () => {
+    navigate('/login');
+  };
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userName');
+
+    navigate('/login');
+  };
+
+  const navItems = isLoggedIn
+    ? [
+      { name: 'Attended Events', path: '/end-user/attended-events' },
+      { name: 'Favourite Events', path: '/end-user/favourite-events' },
+      { name: 'My Items', path: '/end-user/items' }
+    ]
+    : [
+      { name: 'Home', path: '/home' },
+      { name: 'Events', path: 'home' },
+      { name: 'Games', path: '/home' },
+      { name: 'Contact', path: '/home' }
+    ];
+
   return (
     <ThemeProvider theme={theme}>
-       <CssBaseline />
+      <CssBaseline />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <AppBar position="fixed" color="transparent" elevation={0} sx={{ backdropFilter: 'blur(10px)' }}>
           <Toolbar>
-            <Logo /> {/* Replace Typography with Logo component */}
+            <Logo />
             {isMobile ? (
               <IconButton
                 color="inherit"
@@ -165,22 +193,108 @@ const Layout = ({ children }) => {
               </IconButton>
             ) : (
               <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto' }}>
-                {['Home', 'Events', 'Games', 'Contact'].map((item) => (
-                  <Button 
-                    key={item} 
-                    color="inherit" 
-                    sx={{ 
-                      mx: 1, 
-                      '&:hover': { 
+                {navItems.map((item) => (
+                  <Button
+                    key={item.name}
+                    color="inherit"
+                    onClick={() => navigate(item.path)}
+                    sx={{
+                      mx: 1,
+                      '&:hover': {
                         backgroundColor: 'rgba(156, 39, 176)',
                         transform: 'translateY(-2px)',
                       },
                       transition: 'all 0.3s',
                     }}
                   >
-                    {item}
+                    {item.name}
                   </Button>
                 ))}
+                {isLoggedIn ? (
+                  <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+                    <Tooltip title="Your Profile" arrow>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          py: 0.5,
+                          px: 2,
+                          borderRadius: '50px',
+                          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                          transition: 'all 0.3s',
+                          cursor: 'pointer',
+                          '&:hover': {
+                            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                          },
+                        }}
+                      >
+                        <Avatar
+                          sx={{
+                            width: 32,
+                            height: 32,
+                            mr: 1,
+                            bgcolor: 'secondary.main',
+                          }}
+                        >
+                          {username.charAt(0).toUpperCase()}
+                        </Avatar>
+                        <Typography
+                          sx={{
+                            color: 'black',
+                            fontWeight: 'bold',
+                          }}
+                        >
+                          {username}
+                        </Typography>
+                      </Box>
+                    </Tooltip>
+                    <Button
+                      color="inherit"
+                      onClick={handleLogout}
+                      sx={{
+                        ml: 2,
+                        py: 1,
+                        px: 3,
+                        borderRadius: '50px',
+                        backgroundColor: 'secondary.main',
+                        color: 'white',
+                        fontWeight: 'bold',
+                        '&:hover': {
+                          backgroundColor: 'secondary.dark',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                        },
+                        transition: 'all 0.3s',
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </Box>
+                ) : (
+                  <Button
+                    color="inherit"
+                    onClick={handleLogin}
+                    sx={{
+                      ml: 2,
+                      py: 1,
+                      px: 3,
+                      borderRadius: '50px',
+                      backgroundColor: 'secondary.main',
+                      color: 'white',
+                      fontWeight: 'bold',
+                      '&:hover': {
+                        backgroundColor: 'secondary.dark',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                      },
+                      transition: 'all 0.3s',
+                    }}
+                  >
+                    Login
+                  </Button>
+                )}
                 <Paper
                   component="form"
                   sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 300, ml: 2, borderRadius: '50px' }}
@@ -199,18 +313,26 @@ const Layout = ({ children }) => {
           </Toolbar>
         </AppBar>
 
-
         <Drawer
           anchor="right"
           open={isMenuOpen}
           onClose={() => setIsMenuOpen(false)}
         >
           <List sx={styles.fullHeightNav}>
-            {['Home', 'Events', 'Games', 'Contact'].map((text) => (
-              <ListItem button key={text} onClick={() => setIsMenuOpen(false)}>
-                <ListItemText primary={text} />
+            {navItems.map((item) => (
+              <ListItem button key={item.name} onClick={() => { navigate(item.path); setIsMenuOpen(false); }}>
+                <ListItemText primary={item.name} />
               </ListItem>
             ))}
+            {isLoggedIn ? (
+              <ListItem>
+                <ListItemText primary={username} />
+              </ListItem>
+            ) : (
+              <ListItem button onClick={() => { handleLogin(); setIsMenuOpen(false); }}>
+                <ListItemText primary="Login" />
+              </ListItem>
+            )}
           </List>
         </Drawer>
 

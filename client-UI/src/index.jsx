@@ -7,6 +7,7 @@ import { ColorContextProvider } from './ColorContext/darkContext';
 import Login from './Pages/Login/Login';
 import SignUpEnterprise from './Pages/SignUp/SignUpEnterprise';
 import SignUpEndUser from './Pages/EndUser/SignUp';
+import HomeEndUser from './Pages/EndUser/Home.jsx';
 
 const isAuthenticated = () => {
     return !!localStorage.getItem('accessToken');
@@ -25,6 +26,8 @@ root.render(
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup-enterprise" element={<SignUpEnterprise />} />
                     <Route path="/signup-end-user" element={<SignUpEndUser />} />
+                    <Route path="/home" element={<HomeEndUser />} />
+                    <Route path="/" element={<HomeEndUser />} />
                     <Route path="/*" element={<ProtectedRoute element={<App />} />} />
                 </Routes>
             </Router>

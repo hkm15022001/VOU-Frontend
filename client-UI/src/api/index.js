@@ -60,6 +60,23 @@ export const getAllEndUsers = () => API.get('/enduser');
 export const getEndUser = () => API.get(`/enduser`);
 export const createEndUser = (newEndUser) => API.post('/enduser', newEndUser);
 export const verifyPhone = () => API.get(`/enduser`);
+export const sendOtp = (phone) => API.post(`/enduser/sendOTP`, phone)
+export const addEventToFavourite = (eventId) => API.get(`/enduser/event/${eventId}/favorite/add`)
+export const getAttendedEvents = () => API.get(`/enduser/event`)
+export const attendEvent = (id) => API.post(`/enduser/event/${id}`)
+export const playEvent = (id) => API.get(`/enduser/playevent/${id}`)
+export const addTurnToUser = (eventId) => API.post(`/enduser/addturn/${eventId}`,{turn:3})
+
+export const getFavouriteEvents = () => API.get(`/enduser/event/favorite`)
+export const getMyItems = () => API.get(`/enduser/item`)
+export const getItemLists = () => API.get(`/enduser/itemList`)
+
+export const getEventDetails = (id) => API.get(`/enduser/itemList/${id}`)
+export const deleteAttendedEvent = (id) => API.delete(`/enduser/event/${id}`)
+
+deleteAttendedEvent
+
+
 
 // export const updateEnterprise = (identity, updatedEnterprise) => API.put(`/enterprise/${identity}`, updatedEnterprise);
 // export const deleteEnterprise = (identity) => API.delete(`/enterprise/${identity}`);

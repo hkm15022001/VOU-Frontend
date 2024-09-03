@@ -25,7 +25,7 @@ function Lists({ type }) {
                 <div className="data_table">
                     <div className="btnn">
                         <Link
-                            to={`/${type === 'events' ? 'events' : 'users'}/addnew`}
+                            to={`/enterprise/${type === 'events' ? 'events' : 'users'}/addnew`}
                             style={{ textDecoration: 'none' }}
                         >
                             <button type="button">Add New {type}</button>

@@ -49,13 +49,15 @@ export default function SignInSide() {
       console.log(res)
       const role = res.data.data.role;
       localStorage.setItem('accessToken', res.data.data.access_token);
+      localStorage.setItem('userName',payload.username );
+
       if (role === 'admin'){
         toast.error(`You are admin. Please login in cms web`);
         return;
       } else if (role === 'enterprise') {
           navigate(`/enterprise`);
       } else{
-        navigate(`/end-user`);
+        navigate(`/home`);
       }
       
     } catch (err) {

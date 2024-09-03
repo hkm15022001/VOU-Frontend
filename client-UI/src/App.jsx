@@ -6,8 +6,12 @@ import AddNew from './Pages/AddNew/AddNew';
 import EventDetails from './Pages/EventDetail/EventDetail.jsx';
 import Lists from './Pages/Lists/Lists';
 import Profile from './Pages/Profile/Profile.jsx'
+import EndUserEventDetail from './Pages/EndUser/EventDetails.jsx';
+import AttendedEvents from './Pages/EndUser/AttendedEvents';
+import FavouriteEvents from './Pages/EndUser/FavouriteEvents';
+import MyItems from './Pages/EndUser/MyItems';
+import GachaBox from './Pages/GachaBox/GachaBox.jsx';
 import './app.scss';
-import HomeEndUser from './Pages/EndUser/Home.jsx';
 // Dynamicaly change the data for different pages(replaceable)
 const eventInpDetails = [
     {
@@ -83,11 +87,13 @@ function App() {
                     </Route>
                 </Route>
                 <Route path="/end-user">
-                    <Route index element={<HomeEndUser />} />
+                    <Route path="attended-events" element={<AttendedEvents />} />
+                    <Route path="favourite-events" element={<FavouriteEvents />} />
+                    <Route path="items" element={<MyItems />} />
                     <Route path="profile" element={<Profile />} />
-                    <Route path="events">
+                    <Route path="event">
                         <Route index element={<Lists type="events" />} />
-                        <Route path=":eventId" element={<EventDetails />} />
+                        <Route path=":eventId" element={<EndUserEventDetail />} />
                         <Route
                             path="addnew"
                             element={
@@ -99,7 +105,11 @@ function App() {
                             }
                         />
                     </Route>
+                    <Route path="game">
+                        <Route path="gacha" element={<GachaBox />} />
                 </Route>
+                </Route>
+                
             </Routes>
         </div>
     );

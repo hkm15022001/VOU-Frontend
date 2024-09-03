@@ -15,7 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 // Assume we have these API functions
-import { createUser, verifyPhone } from '../../api';
+import { createEndUser ,sendOtp } from '../../api';
 
 const theme = createTheme({
   palette: {
@@ -98,12 +98,16 @@ export default function SignUp() {
     email: '',
     birthday: null,
     gender: '',
-    urlFacebook: '',
+    facebook: '',
     phone: '',
-    verificationCode: '',
+    otp: '',
   });
 
   const handleChange = (event) => {
+    // let { name, value } = event.target;
+    //     if (name === 'phone') {
+    //       value = parseInt(value, 10);
+    //     }
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -123,7 +127,7 @@ export default function SignUp() {
     event.preventDefault();
     setLoading(true);
     try {
-      await createUser(formData);
+      await createEndUser(formData);
       setOpen(true);
     } catch (err) {
       toast.error(`Error registering: ${err.response?.data?.message || 'Please try again!'}`);
@@ -139,6 +143,18 @@ export default function SignUp() {
       handleNext();
     } catch (err) {
       toast.error(`Error verifying phone: ${err.response?.data?.message || 'Please try again!'}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleSendOTP = async () => {
+    setLoading(true);
+    try {
+      console.log(formData.phone)
+      await sendOtp({phone : formData.phone});
+      toast.success('OTP sent successfully!');
+    } catch (err) {
+      toast.error(`Error sending OTP: ${err.response?.data?.message || 'Please try again!'}`);
     } finally {
       setLoading(false);
     }
@@ -232,52 +248,52 @@ export default function SignUp() {
             <TextField
               margin="normal"
               fullWidth
-              name="urlFacebook"
+              name="facebook"
               label="Facebook URL"
-              id="urlFacebook"
+              id="facebook"
               value={formData.urlFacebook}
               onChange={handleChange}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="phone"
-              label="Phone Number"
-              id="phone"
-              value={formData.phone}
-              onChange={handleChange}
-            />
           </>
         );
-      case 2:
-        return (
-          <>
-            <Typography variant="body1" gutterBottom>
-              We've sent a verification code to your phone number. Please enter it below.
-            </Typography>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="verificationCode"
-              label="Verification Code"
-              id="verificationCode"
-              value={formData.verificationCode}
-              onChange={handleChange}
-            />
-            <Button
-              fullWidth
-              variant="contained"
-              color="primary"
-              onClick={handleVerifyPhone}
-              disabled={loading}
-              sx={{ mt: 3, mb: 2 }}
-            >
-              {loading ? 'Verifying...' : 'Verify Phone'}
-            </Button>
-          </>
-        );
+        case 2:
+          return (
+            <>
+              <Typography variant="body1" gutterBottom>
+                Please enter your phone number and click 'Send OTP' to receive a verification code.
+              </Typography>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="phone"
+                label="Phone Number"
+                id="phone"
+                value={formData.phone}
+                onChange={handleChange}
+              />
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={handleSendOTP}
+                disabled={loading}
+                sx={{ mt: 2, mb: 2 }}
+              >
+                {loading ? 'Sending...' : 'Send OTP'}
+              </Button>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="otp"
+                label="Verification Code"
+                id="otp"
+                value={formData.verificationCode}
+                onChange={handleChange}
+              />
+            </>
+          );
       default:
         return 'Unknown step';
     }

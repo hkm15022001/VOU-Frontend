@@ -1,23 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Typography,
   Button,
-  IconButton,
   Container,
   Grid,
-  Card,
-  CardContent,
-  CardMedia,
-  CardActions,
   Box,
-  Grow,
-  Avatar,
 } from '@mui/material';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import GroupIcon from '@mui/icons-material/Group';
-import CasinoIcon from '@mui/icons-material/Casino';
-import VrIcon from '@mui/icons-material/ViewInAr';
-import StarIcon from '@mui/icons-material/Star';
 import Slide from '../../Components/EndUser/Silde';
 import Layout from '../../Components/EndUser/Layout';
 import slide1 from '../../Images/slide1.png'
@@ -96,14 +85,16 @@ const styles = {
 
 // Main App Component
 const HomeEndUser = () => {
-  const adImages = [
-    slide1, slide2, slide3
-  ];
+  const adImages = [slide1, slide2, slide3];
   const [events, setEvents] = useState([]);
+  const discoverEventsRef = useRef(null);
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('');
+
   useEffect(() => {
     getAllEvents()
       .then(response => {
-        // console.log(response.data.data)
         if (response.data.data === null) {
           return
         }
@@ -112,10 +103,23 @@ const HomeEndUser = () => {
       .catch(error => {
         console.error('error when call API:', error);
       });
+    const userNameStore = localStorage.getItem('userName');
+    if (userNameStore) {
+      setIsLoggedIn(true);
+      setUsername(userNameStore);
+    }
   }, []);
 
+  const scrollToDiscoverEvents = () => {
+    discoverEventsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleSignUp = () => {
+    navigate(`/login`);
+  }
+
   return (
-    <Layout>
+    <Layout isLoggedIn={isLoggedIn} username={username}>
       <Box sx={styles.pageBackground} />
       <Box sx={styles.heroSection}>
         <Box sx={styles.heroBackground} />
@@ -130,6 +134,7 @@ const HomeEndUser = () => {
             variant="contained"
             color="secondary"
             size="large"
+            onClick={scrollToDiscoverEvents}
             sx={{
               py: 2,
               px: 4,
@@ -152,47 +157,52 @@ const HomeEndUser = () => {
         </Typography>
         <Slide images={adImages} />
 
-        <Box sx={{ mt: 8 }}>
+        <Box ref={discoverEventsRef} sx={{ mt: 8 }}>
           <Typography variant="h2" align="center" gutterBottom sx={{ ...styles.gradientText, mb: 6 }}>
             Discover Amazing Events
           </Typography>
           <Grid container spacing={4}>
-          {events.map((event) => (
-            <Grid item key={event.id} xs={12} sm={6} md={3}>
-              <EventCategory event={event} />
-            </Grid>
-          ))}
-        </Grid>
+            {events.map((event) => (
+              <Grid item key={event.id} xs={12} sm={6} md={3}>
+                <EventCategory event={event} showPlay={false} showFavorite={false} />
+              </Grid>
+            ))}
+          </Grid>
         </Box>
 
-        <Box sx={{ textAlign: 'center', mt: 8 }}>
-          <Typography variant="h3" gutterBottom sx={{ color: 'text.primary' }}>
-            Ready to Join the Fun?
-          </Typography>
-          <Typography variant="h6" paragraph sx={{ color: 'text.secondary', mb: 4 }}>
-            Don't miss out on our upcoming events!
-          </Typography>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="large"
-            sx={{
-              py: 2,
-              px: 4,
-              fontSize: '1.2rem',
-              '&:hover': {
-                transform: 'translateY(-3px)',
-                boxShadow: '0 6px 20px rgba(245, 0, 87, 0.4)',
-              },
-              transition: 'all 0.3s',
-            }}
-          >
-            Sign Up Now
-          </Button>
-        </Box>
+        {!isLoggedIn ? (
+          <Box sx={{ textAlign: 'center', mt: 8 }}>
+            <Typography variant="h3" gutterBottom sx={{ color: 'text.primary' }}>
+              Ready to Join the Fun?
+            </Typography>
+            <Typography variant="h6" paragraph sx={{ color: 'text.secondary', mb: 4 }}>
+              Don't miss out on our upcoming events!
+            </Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              onClick={handleSignUp}
+              sx={{
+                py: 2,
+                px: 4,
+                fontSize: '1.2rem',
+                '&:hover': {
+                  transform: 'translateY(-3px)',
+                  boxShadow: '0 6px 20px rgba(245, 0, 87, 0.4)',
+                },
+                transition: 'all 0.3s',
+              }}
+            >
+              Sign In Now
+            </Button>
+          </Box>
+        ) : (
+          undefined
+        )}
+
       </Container>
     </Layout>
   );
 };
-
 export default HomeEndUser;
