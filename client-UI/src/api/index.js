@@ -64,12 +64,19 @@ export const sendOtp = (phone) => API.post(`/enduser/sendOTP`, phone)
 export const addEventToFavourite = (eventId) => API.get(`/enduser/event/${eventId}/favorite/add`)
 export const getAttendedEvents = () => API.get(`/enduser/event`)
 export const attendEvent = (id) => API.post(`/enduser/event/${id}`)
-export const playEvent = (id) => API.get(`/enduser/playevent/${id}`)
+export const playEvent = (id, payload) => API.post(`/enduser/playevent/${id}`,  payload)
 export const addTurnToUser = (eventId) => API.post(`/enduser/addturn/${eventId}`,{turn:3})
-
+export const getAllTurns = (id) => API.get(`/enduser/event/${id}`)
+export const getVouchers = (eventId) => API.get(`/event/${eventId}/voucher`)
+export const tradeVoucherGacha = (payload) => API.post(`/enduser/tradevoucher/gacha`,  payload)
 export const getFavouriteEvents = () => API.get(`/enduser/event/favorite`)
+export const deleteFavouriteEvent = (event_id) => API.get(`/enduser/event/${event_id}/favorite/remove`)
+
+
 export const getMyItems = () => API.get(`/enduser/item`)
-export const getItemLists = () => API.get(`/enduser/itemList`)
+export const addItems = (payload) => API.post(`/enduser/item`,payload)
+
+export const getItemLists = (gameId) => API.get(`/enduser/itemList/${gameId}`)
 
 export const getEventDetails = (id) => API.get(`/enduser/itemList/${id}`)
 export const deleteAttendedEvent = (id) => API.delete(`/enduser/event/${id}`)

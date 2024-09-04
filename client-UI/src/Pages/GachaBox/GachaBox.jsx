@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
+import {  useNavigate, useParams } from 'react-router-dom';
+import CustomButton from '../../Components/Button/Button';
 import './gachabox.css';
 import axios from 'axios';
-
+import VirtualMC from '../../Components/EndUser/VirtualMC';
+import { getAllTurns, getItemLists,getMyItems,playEvent, addItems } from '../../api';
 const initialBanners = [
   {
     image: '/src/Images/banners/can_banner.png',
@@ -32,25 +35,9 @@ const initialBanners = [
   }
 ];
 
-const items = [
-  { name: "callmeyourdaddy", image: "callmeyourdaddy.png" },
-  { name: "can", image: "can.png" },
-  { name: "fishmeo", image: "fishmeo.png" },
-  { name: "ganyu", image: "ganyu.png" },
-  { name: "huhuhu", image: "huhuhu.png" },
-  { name: "indomie", image: "indomie.png" },
-  { name: "jingyuan", image: "jingyuan.png" },
-  { name: "meo7", image: "meo7.png" },
-  { name: "realmeo", image: "realmeo.png" },
-  { name: "spidermeo", image: "spidermeo.png" },
-  { name: "supermeo", image: "supermeo.png" },
-  { name: "tankmeo", image: "tankmeo.png" },
-  { name: "tomeo", image: "tomeo.png" },
-  { name: "yasuo", image: "yasuo.png" },
-  { name: "you", image: "you.png" }
-];
-
 const GachaBox = () => {
+  const { eventId } = useParams();
+  const [itemList, setItemList] = useState([]);
   const [result, setResult] = useState([]);
   const [currentBanner, setCurrentBanner] = useState(1);
   const [banners, setBanners] = useState(initialBanners);
@@ -60,33 +47,61 @@ const GachaBox = () => {
   const [showBagModal, setShowBagModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [bag, setBag] = useState([]);
+  const [playCount, setPlayCount] = useState(0);
+  const navigate = useNavigate();
+  const virtualMCRef = useRef(null);
 
   useEffect(() => {
     console.log("Fetch")
     const fetchItems = async () => {
       try {
-        const response = await axios.get('http://34.124.217.226:5000/items');
-        console.log('Fetched items:', response.data);
-        setBag(response.data);
+        const [listResponse, itemsResponse, playCountResponse] = await Promise.all([
+          getItemLists('90b738ae-8733-4d65-8cfe-305c922722e4'),
+          getMyItems(),
+          getAllTurns(eventId) // Giả sử có endpoint này
+        ]);
+        if(!listResponse.data.data) {
+          listResponse.data.data = []
+        }
+        console.log("itemList-state:",listResponse.data.data )
+
+        setItemList(listResponse.data.data)
+        if(!itemsResponse.data.data) {
+          itemsResponse.data.data = []
+        }
+        console.log("bag:",itemsResponse.data.data);
+        setBag(itemsResponse.data.data);
+        setPlayCount(playCountResponse.data.data.turn);
       } catch (err) {
         console.error(err);
       }
     };
     fetchItems();
+    virtualMCRef.current.speak(`Mỗi ngày, người chơi sẽ có 10 lượt cầu nguyện, mỗi lần cầu nguyện sẽ nhận được một vật phâm xứng đáng với sự kỳ vọng của người cầu nguyện. Hãy thu thập thật nhiều chiến lợi phẩm để có cơ hội đổi lấy voucher`);
+    // virtualMCRef.current.speak(`Minh`);
+
   }, []);
 
-  const handleGacha = async (count) => {
+
+
+  const handleGacha = async (subCount) => {
+    if (playCount < subCount) {
+      alert('Không đủ lượt chơi!Kiếm thêm lượt bằng cách chia sẻ FaceBook hoặc xin bạn bè');
+      return;
+    }
     const randomItems = [];
     const { character, exclude } = banners[currentBanner];
-    const allowedItems = items.filter(item => !exclude.includes(item.image) && item.image !== character);
+    console.log("itemList-handleGacha:",itemList )
+
+    const allowedItems = itemList.filter(item => !exclude.includes(item.images) && item.images !== character);
     let hasSpecialCharacter = false;
     let newBag = [...bag];
 
-    for (let i = 0; i < count; i++) {
-      const isSpecialCharacter = Math.random() < 0.1; // 10% chance
+    for (let i = 0; i < (subCount+1); i++) {
+      const isSpecialCharacter = Math.random() < 0.5; // 10% chance
       let rolledItem;
       if (isSpecialCharacter) {
-        rolledItem = items.find(item => item.image === character);
+        rolledItem = itemList.find(item => item.images === character);
         if (rolledItem) {
           hasSpecialCharacter = true;
         }
@@ -94,26 +109,38 @@ const GachaBox = () => {
         rolledItem = allowedItems[Math.floor(Math.random() * allowedItems.length)];
       }
       if (rolledItem) {
+        // Thêm trường item_type_id
+        rolledItem = { ...rolledItem, item_type_id: rolledItem.id };
+        
         randomItems.push(rolledItem);
         const itemIndex = newBag.findIndex(item => item.name === rolledItem.name);
         if (itemIndex !== -1) {
-          newBag[itemIndex].count += 1;
+          newBag[itemIndex].number += 1;
         } else {
-          newBag.push({ ...rolledItem, count: 1 });
+          newBag.push({ ...rolledItem, number: 1 });
         }
       }
     }
-
+    console.log("newbag: ",newBag)
     setBag(newBag);
     setResult(randomItems);
     setVideoSrc(hasSpecialCharacter ? '/video2.mp4' : '/video1.mp4');
     setShowVideo(true);
 
     try {
-      await axios.post('http://34.124.217.226:5000/items', { items: newBag });
+      await Promise.all([
+        addItems({ data: newBag }),
+        playEvent(eventId,{ "number": subCount }) 
+      ]);
+      setPlayCount(prevCount => prevCount - subCount);
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleSpeakComplete = () => {
+    // Có thể thêm logic sau khi MC nói xong ở đây
+    console.log('MC đã nói xong');
   };
 
   const handleCloseResult = () => {
@@ -228,8 +255,8 @@ const GachaBox = () => {
       <div className="bag-items">
         {bag.map((item, index) => (
           <div key={index} className="bag-item">
-            <img src={`/src/Images/characters/${item.image}`} alt={item.name} />
-            <div>{item.name} x {item.count}</div>
+            <img src={`/src/Images/characters/${item.images}`} alt={item.name} />
+            <div>{item.name} x {item.number}</div>
           </div>
         ))}
       </div>
@@ -242,9 +269,9 @@ const GachaBox = () => {
     <div className="modal-content">
       <h2>Chi Tiết Cầu Nguyện</h2>
       <div className="detail-items">
-        {items.map((item, index) => (
+        {itemList.map((item, index) => (
           <div key={index} className="detail-item">
-            {item.name} - {item.image === banners[currentBanner].character ? '0.05%' : (99.95 / (items.length - 1)).toFixed(2) + '%'}
+            {item.name} - {item.images === banners[currentBanner].character ? '0.05%' : (99.95 / (itemList.length - 1)).toFixed(2) + '%'}
           </div>
         ))}
       </div>
@@ -254,6 +281,9 @@ const GachaBox = () => {
 
   return (
     <div style={backgroundStyle}>
+      <CustomButton content={"HomePage"} onClickHandle={() => { navigate('/')}}/>
+      <div className="play-count">Số lượt chơi còn lại: {playCount}</div>
+      <VirtualMC ref={virtualMCRef} onSpeakComplete={handleSpeakComplete} />
       <div className="banner-container">
         {banners.map((banner, index) => (
           <div key={index} className={`banner-wrapper ${index === 1 ? 'center' : 'side'}`} onClick={() => handleBannerClick(index)}>
@@ -310,8 +340,8 @@ const GachaBox = () => {
         <div className="result-overlay">
           <div className="result">
             {result.map((item, index) => (
-              <div key={index} className={`result-item ${item.image === banners[currentBanner].character ? 'limited' : ''}`}>
-                <img src={`/src/Images/characters/${item.image}`} alt={item.name} />
+              <div key={index} className={`result-item ${item.images === banners[currentBanner].character ? 'limited' : ''}`}>
+                <img src={`/src/Images/characters/${item.images}`} alt={item.name} />
                 <div>{item.name}</div>
               </div>
             ))}

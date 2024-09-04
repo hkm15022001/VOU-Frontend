@@ -1,0 +1,76 @@
+.virtual-mc-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .virtual-mc {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+  }
+  
+  .virtual-mc img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .virtual-mc.speaking {
+    animation: pulse 1s infinite alternate;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    100% {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+  }
+  
+  .mc-text {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 250px;
+    font-size: 14px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .speak-button {
+    padding: 10px 20px;
+    background-color: #FF4500;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  
+  .speak-button:hover {
+    background-color: #FF6347;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+  }
+  
+  .speak-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }

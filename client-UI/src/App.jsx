@@ -105,8 +105,8 @@ function App() {
                             }
                         />
                     </Route>
-                    <Route path="game">
-                        <Route path="gacha" element={<GachaBox />} />
+                    <Route path="game/gacha">
+                        <Route path=":eventId" element={<GachaBox />} />
                 </Route>
                 </Route>
                 

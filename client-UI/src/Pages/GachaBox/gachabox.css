@@ -5,7 +5,7 @@ body, html {
     height: 100%;
     font-family: 'Arial', sans-serif;
     color: white;
-    overflow: hidden;
+    /* overflow: hidden; */
   }
   
   .banner-container {
@@ -308,4 +308,13 @@ body, html {
     background-color: #e43a4f;
     transform: scale(1.1);
   }
-  
+  .play-count {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+  }

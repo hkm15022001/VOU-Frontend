@@ -101,7 +101,7 @@ const EventCategory = ({
   };
 
   const handlePlay = async () => {
-    navigate(`/end-user/game/${game.type}`);
+    navigate(`/end-user/game/${game.type}/${event.id}`);
 
   };
 
