@@ -76,14 +76,14 @@ const MyItems = () => {
                 <Typography variant="h2" align="center" gutterBottom sx={gradientText}>
                     My Items
                 </Typography>
-                <Button 
+                {/* <Button 
                     variant="contained" 
                     color="primary" 
                     onClick={handleOpenVoucherDialog}
                     sx={{ mb: 2 }}
                 >
                     Đổi voucher
-                </Button>
+                </Button> */}
                 {loading ? (
                     <Grid container justifyContent="center">
                         <CircularProgress />
@@ -116,23 +116,6 @@ const MyItems = () => {
                     </Grid>
                 )}
             </Container>
-
-            <Dialog open={openVoucherDialog} onClose={handleCloseVoucherDialog}>
-                <DialogTitle>Danh sách Voucher</DialogTitle>
-                <DialogContent>
-                    <List>
-                        {vouchers.map((voucher) => (
-                            <ListItem key={voucher.id}>
-                                <ListItemText primary={voucher.name} secondary={voucher.description} />
-                                <Button onClick={() => handleTradeVoucher(voucher.id, '90b738ae-8733-4d65-8cfe-305c922722e4')}>Đổi</Button>
-                            </ListItem>
-                        ))}
-                    </List>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCloseVoucherDialog}>Đóng</Button>
-                </DialogActions>
-            </Dialog>
         </Layout>
     );
 };

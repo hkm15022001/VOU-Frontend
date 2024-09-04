@@ -11,6 +11,8 @@ import AttendedEvents from './Pages/EndUser/AttendedEvents';
 import FavouriteEvents from './Pages/EndUser/FavouriteEvents';
 import MyItems from './Pages/EndUser/MyItems';
 import GachaBox from './Pages/GachaBox/GachaBox.jsx';
+import TriviaLobby from './Pages/Trivia/index.jsx';
+import TriviaBox from './Components/TriviaBox/TriviaBox.jsx';
 import './app.scss';
 // Dynamicaly change the data for different pages(replaceable)
 const eventInpDetails = [
@@ -107,9 +109,14 @@ function App() {
                     </Route>
                     <Route path="game/gacha">
                         <Route path=":eventId" element={<GachaBox />} />
+                    </Route>
+                    <Route path="game/trivia">
+                        <Route path=":eventId" element={<TriviaLobby />} />
+                    </Route>
+                    <Route path="game/triviabox" element={<TriviaBox />} />
+
                 </Route>
-                </Route>
-                
+
             </Routes>
         </div>
     );

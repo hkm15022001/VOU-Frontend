@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { 
+import {
     Container, Typography, Grid, CircularProgress, Button, Snackbar, IconButton,
     Dialog, DialogTitle, DialogContent, DialogActions, List, ListItem, ListItemText,
-    Modal, Box
+    Modal, Box,CardMedia
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MuiAlert from '@mui/material/Alert';
 import Layout from '../../Components/EndUser/Layout';
 import EventCategory from '../../Components/EndUser/EventCategory';
-import { BackEndAddress ,getAttendedEvents, addTurnToUser, deleteAttendedEvent, getVouchers, tradeVoucherGacha } from '../../api';
+import { BackEndAddress, getAttendedEvents, addTurnToUser, deleteAttendedEvent, getVouchers, tradeVoucherGacha } from '../../api';
 
 const gradientText = {
     backgroundClip: 'text',
@@ -40,7 +40,7 @@ const AttendedEvents = () => {
         fetchAttendedEvents();
 
         // Initialize Facebook SDK
-        window.fbAsyncInit = function() {
+        window.fbAsyncInit = function () {
             FB.init({
                 appId: 'YOUR_APP_ID', // Replace with your Facebook App ID
                 xfbml: true,
@@ -49,7 +49,7 @@ const AttendedEvents = () => {
         };
 
         // Load Facebook SDK
-        (function(d, s, id) {
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
             js = d.createElement(s); js.id = id;
@@ -124,7 +124,7 @@ const AttendedEvents = () => {
     const handleShare = (event) => {
         const shareUrl = `http://34.124.217.226:5173`;
         const quote = `Check out this event: ${event.name} of ${event.enterprise_name}\nStart time at ${event.start_time} and End time at ${event.end_time}`;
-        
+
         return (
             <Button
                 variant="contained"
@@ -138,7 +138,7 @@ const AttendedEvents = () => {
                         href: shareUrl,
                         quote: quote,
                         hashtag: `#${event.name}`,
-                    }, function(response) {
+                    }, function (response) {
                         setIsDialogOpen(false);
                         if (response && !response.error_message) {
                             console.log('Shared successfully');
@@ -157,8 +157,8 @@ const AttendedEvents = () => {
     const handleOpenVoucherDialog = async (eventId) => {
         try {
             const response = await getVouchers(eventId);
-            if(!response.data.data) {
-                response.data.data =[]
+            if (!response.data.data) {
+                response.data.data = []
             }
             setVouchers(response.data.data);
             setSelectedEventId(eventId);
@@ -177,13 +177,13 @@ const AttendedEvents = () => {
     const handleTradeVoucher = async (voucherId, gameId) => {
         try {
             setIsExchangingVoucher(true);
-            const response = await tradeVoucherGacha({"voucher_id": voucherId, "game_id": gameId});
+            const response = await tradeVoucherGacha({ "voucher_id": voucherId, "game_id": gameId });
             setQrCodeImage(response.data.data);
             handleCloseVoucherDialog();
             setOpenQrCodeModal(true);
         } catch (error) {
             console.error('Failed to trade voucher:', error);
-            showSnackbar('Failed to trade voucher', 'error');
+            showSnackbar('Bạn chưa sưu tầm đủ danh sách vật phẩm của game, hãy cày tiếp nhé !!');
         } finally {
             setIsExchangingVoucher(false);
         }
@@ -244,7 +244,19 @@ const AttendedEvents = () => {
                         {vouchers.map((voucher) => (
                             <ListItem key={voucher.id}>
                                 <ListItemText primary={voucher.name} secondary={voucher.description} />
-                                <Button 
+                                <CardMedia
+                                    component="img"
+                                    height="20"
+                                    image={`${BackEndAddress}/image/voucherimage/${voucher.images}`}
+                                    alt={name}
+                                    sx={{
+                                        transition: 'transform 0.3s ease-in-out',
+                                        '&:hover': {
+                                            transform: 'scale(1.05)',
+                                        },
+                                    }}
+                                />
+                                <Button
                                     onClick={() => handleTradeVoucher(voucher.id, '90b738ae-8733-4d65-8cfe-305c922722e4')}
                                     disabled={isExchangingVoucher}
                                 >
@@ -287,7 +299,7 @@ const AttendedEvents = () => {
                     )}
                     <Button onClick={handleCloseQrCodeModal} sx={{ mt: 2 }}>Đóng</Button>
                 </Box>
-                </Modal>   
+            </Modal>
         </Layout>
     );
 };

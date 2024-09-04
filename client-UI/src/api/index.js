@@ -69,6 +69,8 @@ export const addTurnToUser = (eventId) => API.post(`/enduser/addturn/${eventId}`
 export const getAllTurns = (id) => API.get(`/enduser/event/${id}`)
 export const getVouchers = (eventId) => API.get(`/event/${eventId}/voucher`)
 export const tradeVoucherGacha = (payload) => API.post(`/enduser/tradevoucher/gacha`,  payload)
+export const tradeVoucherQuiz = (payload) => API.post(`/enduser/tradevoucher/quiz`,  payload)
+
 export const getFavouriteEvents = () => API.get(`/enduser/event/favorite`)
 export const deleteFavouriteEvent = (event_id) => API.get(`/enduser/event/${event_id}/favorite/remove`)
 
