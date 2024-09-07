@@ -13,6 +13,7 @@ import MyItems from './Pages/EndUser/MyItems';
 import GachaBox from './Pages/GachaBox/GachaBox.jsx';
 import TriviaLobby from './Pages/Trivia/index.jsx';
 import TriviaBox from './Components/TriviaBox/TriviaBox.jsx';
+import VoucherPage from './Pages/Voucher/VoucherPage.jsx';
 import './app.scss';
 // Dynamicaly change the data for different pages(replaceable)
 const eventInpDetails = [
@@ -72,6 +73,7 @@ function App() {
             <Routes>
                 <Route path="/enterprise">
                     <Route index element={<Home />} />
+                    <Route path="voucher" element={<VoucherPage />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="events">
                         <Route index element={<Lists type="events" />} />

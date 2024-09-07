@@ -26,6 +26,7 @@
       &.negetive {
         color: red;
       }
+
       &.positive {
         color: green;
       }
@@ -36,6 +37,7 @@
     font-size: 25px;
     margin: 20px 0px;
     display: flex;
+    color: black;
     align-items: center;
     font-family: "Roboto", sans-serif;
   }

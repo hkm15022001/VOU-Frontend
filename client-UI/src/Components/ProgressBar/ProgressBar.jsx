@@ -32,7 +32,7 @@ function ProgressBar() {
     return (
         <div className="progress_bar">
             <div className="top">
-                <p>Total number of used voucher in week</p>
+                <p>Event Participation Rate</p>
                 <MoreVertOutlinedIcon />
             </div>
 
@@ -54,7 +54,7 @@ function ProgressBar() {
                         </PieChart>
                     </ResponsiveContainer>
                 </div>
-                <p>Total number of rounds played today.</p>
+                <p>Total Rounds Played Today.</p>
                 <p className="price">
                     <GradeIcon style={{ fontSize: '32px' }} />
                     10

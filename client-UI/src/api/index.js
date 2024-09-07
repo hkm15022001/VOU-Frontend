@@ -54,7 +54,14 @@ export const deleteEvent = (identity) => API.delete(`/event/${identity}`);
 // ----------------------------Enterprise--------------------------
 export const getAllEnterprises = () => API.get('/admin/enterprise');
 export const getEnterprise = () => API.get(`/enterprise`);
+export const updateEnterprise = (payload) => API.put(`/enterprise`,payload);
 export const createEnterprise = (newEnterprise) => API.post('/enterprise', newEnterprise);
+export const getVoucherByEvent = (id) => API.get(`/event/${id}/voucher`)
+export const deleteVoucher = (id) => API.delete(`/event/voucher/${id}`)
+export const createVoucher = (eventId,payload) => API.post(`/event/${eventId}/voucher`, payload);
+export const getTotalAttendancesByEventIDInWeek = (id) => API.get(`/enterprise/statistic/total_attendances_by_event_id_in_week/${id}`)
+export const getAttendancesInWeek
+= () => API.get(`/enterprise/statistic/total_attendances_in_week`)
 // ----------------------------EndUser--------------------------
 export const getAllEndUsers = () => API.get('/enduser');
 export const getEndUser = () => API.get(`/enduser`);
@@ -64,19 +71,20 @@ export const sendOtp = (phone) => API.post(`/enduser/sendOTP`, phone)
 export const addEventToFavourite = (eventId) => API.get(`/enduser/event/${eventId}/favorite/add`)
 export const getAttendedEvents = () => API.get(`/enduser/event`)
 export const attendEvent = (id) => API.post(`/enduser/event/${id}`)
-export const playEvent = (id, payload) => API.post(`/enduser/playevent/${id}`,  payload)
-export const addTurnToUser = (eventId) => API.post(`/enduser/addturn/${eventId}`,{turn:3})
+export const playEvent = (id, payload) => API.post(`/enduser/playevent/${id}`, payload)
+export const addTurnToUser = (eventId) => API.post(`/enduser/addturn/${eventId}`, { turn: 3 })
 export const getAllTurns = (id) => API.get(`/enduser/event/${id}`)
 export const getVouchers = (eventId) => API.get(`/event/${eventId}/voucher`)
-export const tradeVoucherGacha = (payload) => API.post(`/enduser/tradevoucher/gacha`,  payload)
-export const tradeVoucherQuiz = (payload) => API.post(`/enduser/tradevoucher/quiz`,  payload)
+export const tradeVoucherGacha = (payload) => API.post(`/enduser/tradevoucher/gacha`, payload)
+export const tradeVoucherQuiz = (payload) => API.post(`/enduser/tradevoucher/quiz`, payload)
 
 export const getFavouriteEvents = () => API.get(`/enduser/event/favorite`)
 export const deleteFavouriteEvent = (event_id) => API.get(`/enduser/event/${event_id}/favorite/remove`)
 
 
 export const getMyItems = () => API.get(`/enduser/item`)
-export const addItems = (payload) => API.post(`/enduser/item`,payload)
+export const addItems = (payload) => API.post(`/enduser/item`, payload)
+export const giveItem = (payload) => API.post(`/enduser/trade`, payload)
 
 export const getItemLists = (gameId) => API.get(`/enduser/itemList/${gameId}`)
 
@@ -124,3 +132,15 @@ export const uploadEventImage = (file) => {
         },
     });
 };
+
+export const uploadVoucherImage = (file) => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return API.post('/image/voucherimage/upload', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+};
+

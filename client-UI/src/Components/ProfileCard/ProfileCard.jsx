@@ -1,33 +1,56 @@
+import React, { useState } from 'react';
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import { Grid } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import Badge from "@mui/material/Badge";
 import Button from "@mui/material/Button";
+import EditIcon from '@mui/icons-material/Edit';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import WorkIcon from '@mui/icons-material/Work';
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import EditEnterpriseDialog from './EditEnterpriseDialog';
 
 const styles = {
     card: {
-        maxWidth: "100%", // Đảm bảo không vượt quá kích thước component cha
-        width: "90%", // Chiều rộng mong muốn của Card
-        margin: "0 auto", // Căn giữa Card trong component cha
+        maxWidth: "100%",
+        width: "90%",
+        margin: "0 auto",
+        boxShadow: "0 4px 20px 0 rgba(0,0,0,0.1)",
+        borderRadius: "16px",
     },
     details: {
         padding: "1rem",
-        borderTop: "1px solid #e1e1e1"
+        borderTop: "1px solid #e1e1e1",
+        display: "flex",
+        alignItems: "center",
     },
     value: {
         padding: "1rem",
         borderTop: "1px solid #e1e1e1",
         color: "#899499",
         textAlign: "right"
-    }
+    },
+    icon: {
+        marginRight: "0.5rem",
+        color: "#6c757d",
+    },
 };
 
+export default function ProfileCard({ props, onUpdate }) {
+    const [open, setOpen] = useState(false);
 
-export default function ProfileCard({ props }) {
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const handleUpdate = (updatedData) => {
+        onUpdate(updatedData);
+        handleClose();
+    };
+
     return (
-        <Card variant="outlined">
+        <Card style={styles.card}>
             <Grid
                 container
                 direction="column"
@@ -35,7 +58,7 @@ export default function ProfileCard({ props }) {
                 alignItems="center"
             >
                 {/* CARD HEADER START */}
-                <Grid item sx={{ p: "1.5rem 0rem", textAlign: "center" }}>
+                <Grid item sx={{ p: "2rem 0rem", textAlign: "center", bgcolor: "#f8f9fa", width: "100%", borderRadius: "16px 16px 0 0" }}>
                     {/* PROFILE PHOTO */}
                     <Badge
                         overlap="circular"
@@ -50,60 +73,82 @@ export default function ProfileCard({ props }) {
                                     width: 35,
                                     height: 35
                                 }}
-                            ></PhotoCameraIcon>
+                            />
                         }
                     >
                         <Avatar
-                            sx={{ width: 100, height: 100, mb: 1.5 }}
+                            sx={{ width: 120, height: 120, mb: 2, boxShadow: "0 4px 10px 0 rgba(0,0,0,0.1)" }}
                             src="https://media.glamour.com/photos/5a425fd3b6bcee68da9f86f8/master/pass/best-face-oil.png"
-                        ></Avatar>
+                        />
                     </Badge>
 
                     {/* DESCRIPTION */}
-                    <Typography variant="h6">{props.name}</Typography>
-                    <Typography color="text.secondary">{props.field}</Typography>
+                    <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>{props.name}</Typography>
+                    <Typography variant="subtitle1" color="text.secondary">{props.field}</Typography>
                 </Grid>
                 {/* CARD HEADER END */}
 
                 {/* DETAILS AND VALUES */}
-                <Grid container>
+                <Box sx={{ width: '100%', p: 2 }}>
                     <Grid container>
-                        <Grid item xs={6} >
-                            <Typography style={styles.details}>Location</Typography>
+                        <Grid item xs={12} sm={6} style={styles.details}>
+                            <LocationOnIcon style={styles.icon} />
+                            <Typography>Location</Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                             <Typography style={styles.value}>{props.location}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
-                        <Grid item xs={6}>
-                            <Typography style={styles.details}>GPS</Typography>
+                        <Grid item xs={12} sm={6} style={styles.details}>
+                            <GpsFixedIcon style={styles.icon} />
+                            <Typography>GPS</Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                             <Typography style={styles.value}>{props.gps}</Typography>
                         </Grid>
                     </Grid>
                     <Grid container>
-                        <Grid item xs={6}>
-                            <Typography style={styles.details}>Field</Typography>
+                        <Grid item xs={12} sm={6} style={styles.details}>
+                            <WorkIcon style={styles.icon} />
+                            <Typography>Field</Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} sm={6}>
                             <Typography style={styles.value}>{props.field}</Typography>
                         </Grid>
                     </Grid>
-                </Grid>
+                </Box>
 
                 {/* BUTTON */}
-                <Grid item style={styles.details} sx={{ width: "100%", textAlign: "center" }}>
+                <Grid item sx={{ width: "100%", textAlign: "center", p: 2 }}>
                     <Button
                         variant="contained"
-                        color="secondary"
-                        sx={{ width: "90%", p: 1, my: 2 }}
+                        color="primary"
+                        startIcon={<EditIcon />}
+                        onClick={handleOpen}
+                        sx={{ 
+                            width: "90%", 
+                            p: 1.5, 
+                            my: 2, 
+                            borderRadius: "25px",
+                            textTransform: "none",
+                            fontSize: "1rem",
+                            boxShadow: "0 4px 10px 0 rgba(0,0,0,0.1)",
+                            '&:hover': {
+                                boxShadow: "0 6px 15px 0 rgba(0,0,0,0.15)",
+                            }
+                        }}
                     >
-                        Edit
+                        Edit Profile
                     </Button>
                 </Grid>
             </Grid>
+            <EditEnterpriseDialog
+                open={open}
+                handleClose={handleClose}
+                data={props}
+                onUpdate={handleUpdate}
+            />
         </Card>
     );
 }

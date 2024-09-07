@@ -54,7 +54,7 @@ function ItemLists({ type, count }) {
             break;
         case 'number of plays':
             data = {
-                title: 'Number of Plays',
+                title: 'Total Attended Users',
                 isMoney: true,
                 count: count,
                 icon: (

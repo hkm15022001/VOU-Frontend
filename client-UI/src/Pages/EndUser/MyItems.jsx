@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Container, Typography, Grid, Card, CardMedia, CardContent, 
-  CircularProgress, Button, Dialog, DialogTitle, DialogContent, 
-  DialogActions, List, ListItem, ListItemText 
+import {
+    Container, Typography, Grid, Card, CardMedia, CardContent,
+    CircularProgress, Button, Dialog, DialogTitle, DialogContent,
+    DialogActions, TextField, Snackbar
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../../Components/EndUser/Layout';
-import { getMyItems, getVouchers, tradeVoucherGacha } from '../../api';
+import { getMyItems, giveItem } from '../../api';
 
 const gradientText = {
     backgroundClip: 'text',
@@ -18,8 +18,13 @@ const gradientText = {
 const MyItems = () => {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [vouchers, setVouchers] = useState([]);
-    const [openVoucherDialog, setOpenVoucherDialog] = useState(false);
+    const [loading2, setLoading2] = useState(false);
+    const [openGiveDialog, setOpenGiveDialog] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [receiverEmail, setReceiverEmail] = useState('');
+    const [giveAmount, setGiveAmount] = useState(1);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
     const userNameStore = localStorage.getItem('userName');
     const navigate = useNavigate();
 
@@ -44,29 +49,38 @@ const MyItems = () => {
         fetchMyItems();
     }, []);
 
-    const handleOpenVoucherDialog = async () => {
-        try {
-            const response = await getVouchers();
-            setVouchers(response.data.data);
-            setOpenVoucherDialog(true);
-        } catch (error) {
-            console.error('Failed to fetch vouchers:', error);
-        }
+    const handleOpenGiveDialog = (item) => {
+        setSelectedItem(item);
+        setOpenGiveDialog(true);
     };
 
-    const handleCloseVoucherDialog = () => {
-        setOpenVoucherDialog(false);
+    const handleCloseGiveDialog = () => {
+        setOpenGiveDialog(false);
+        setSelectedItem(null);
+        setReceiverEmail('');
+        setGiveAmount(1);
     };
 
-    const handleTradeVoucher = async (voucherId, gameId) => {
+    const handleGiveItem = async () => {
         try {
-            await tradeVoucherGacha({"voucher_id":voucherId, "game_id":gameId});
-            // Refresh the items list after successful trade
+            setLoading2(true)
+            await giveItem({
+                item_id: selectedItem.id,
+                receiver_email: receiverEmail,
+                number: giveAmount
+            });
+            setSnackbarMessage(`Successfully gave ${giveAmount} ${selectedItem.name}(s) to ${receiverEmail}`);
+            setSnackbarOpen(true);
+            handleCloseGiveDialog();
+            // Refresh the items list
             const response = await getMyItems();
             setItems(response.data.data);
-            handleCloseVoucherDialog();
         } catch (error) {
-            console.error('Failed to trade voucher:', error);
+            console.error('Failed to give item:', error);
+            setSnackbarMessage('Failed to give item. Please try again.');
+            setSnackbarOpen(true);
+        } finally {
+            setLoading2(false)
         }
     };
 
@@ -76,14 +90,7 @@ const MyItems = () => {
                 <Typography variant="h2" align="center" gutterBottom sx={gradientText}>
                     My Items
                 </Typography>
-                {/* <Button 
-                    variant="contained" 
-                    color="primary" 
-                    onClick={handleOpenVoucherDialog}
-                    sx={{ mb: 2 }}
-                >
-                    Đổi voucher
-                </Button> */}
+
                 {loading ? (
                     <Grid container justifyContent="center">
                         <CircularProgress />
@@ -109,12 +116,67 @@ const MyItems = () => {
                                         <Typography variant="body1" color="text.secondary">
                                             Count: {item.number}
                                         </Typography>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={() => handleOpenGiveDialog(item)}
+                                            sx={{ mt: 2 }}
+                                        >
+                                            Give my friend
+                                        </Button>
                                     </CardContent>
                                 </Card>
                             </Grid>
                         ))}
                     </Grid>
                 )}
+
+                <Dialog open={openGiveDialog} onClose={handleCloseGiveDialog}>
+                    <DialogTitle>Give Item to Friend</DialogTitle>
+                    <DialogContent>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="receiver-email"
+                            label="Friend's Email"
+                            type="email"
+                            fullWidth
+                            variant="standard"
+                            value={receiverEmail}
+                            onChange={(e) => setReceiverEmail(e.target.value)}
+                        />
+                        <TextField
+                            margin="dense"
+                            id="give-amount"
+                            label="Amount to Give"
+                            type="number"
+                            fullWidth
+                            variant="standard"
+                            value={giveAmount}
+                            onChange={(e) => setGiveAmount(Math.max(1, parseInt(e.target.value)))}
+                            inputProps={{ min: 1, max: selectedItem?.number }}
+                        />
+                    </DialogContent>
+                    {
+                        loading2 ? (
+                            <Grid container justifyContent="center">
+                                <CircularProgress />
+                            </Grid>
+                        ) : (
+                            <DialogActions>
+                                <Button onClick={handleCloseGiveDialog}>Cancel</Button>
+                                <Button onClick={handleGiveItem}>Give</Button>
+                            </DialogActions>
+                        )
+                    }
+                </Dialog>
+
+                <Snackbar
+                    open={snackbarOpen}
+                    autoHideDuration={6000}
+                    onClose={() => setSnackbarOpen(false)}
+                    message={snackbarMessage}
+                />
             </Container>
         </Layout>
     );

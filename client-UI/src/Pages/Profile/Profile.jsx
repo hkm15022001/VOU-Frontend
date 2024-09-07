@@ -10,10 +10,14 @@ import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import { getEnterprise } from "../../api";
 
 export default function Profile() {
-    const [enterprises, setEnterprises] = useState([]);
+    const [enterprises, setEnterprises] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        fetchEnterprises();
+    }, []);
+
+    const fetchEnterprises = () => {
         getEnterprise()
             .then(response => {
                 setEnterprises(response.data.data);
@@ -23,7 +27,11 @@ export default function Profile() {
                 console.error('error when call API:', error);
                 setLoading(false);
             });
-    }, []);
+    };
+
+    const handleUpdate = (updatedEnterprise) => {
+        setEnterprises(updatedEnterprise);
+    };
 
     return (
         <div className="details" style={{ display: 'flex' }}>
@@ -47,12 +55,13 @@ export default function Profile() {
                         sx={{
                             marginTop: "20vh",
                             width: "100%",
-                            paddingX: 2 // Add some padding to avoid touching the edges
+                            paddingX: 2
                         }}
                     >
                         <Grid item xs={12} md={8} lg={6}>
                             <ProfileCard
                                 props={enterprises}
+                                onUpdate={handleUpdate}
                             />
                         </Grid>
                     </Grid>

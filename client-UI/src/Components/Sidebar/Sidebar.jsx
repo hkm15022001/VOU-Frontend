@@ -38,7 +38,7 @@ function Sidebar() {
                     </Link>
 
                     <p className="spann">lists</p>
-                    <Link to="#" style={{ textDecoration: 'none' }}>
+                    <Link to="/enterprise/voucher" style={{ textDecoration: 'none' }}>
                         <li>
                             <PriceChangeIcon className="icon" /> Voucher
                         </li>

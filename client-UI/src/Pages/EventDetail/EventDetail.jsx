@@ -7,7 +7,7 @@ import Chart from '../../Components/Chart/Chart';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import TableList from '../../Components/TransactionList/TransactionList';
-import { BackEndAddress, getEvent, updateEvent } from '../../api';
+import { BackEndAddress, getEvent, updateEvent, getTotalAttendancesByEventIDInWeek } from '../../api';
 import EventDetailsEdit from '../EventEdit/EventEdit';
 import './eventDetail.scss';
 
@@ -18,36 +18,36 @@ import book3 from '../../Images/book3.jpg';
 import book4 from '../../Images/book4.jpg';
 import book5 from '../../Images/book5.jpg';
 
-const data = [
-    {
-        day: '03/08/2024',
-        count: 50,
-    },
-    {
-        day: '04/08/2024',
-        count: 75,
-    },
-    {
-        day: '05/08/2024',
-        count: 80,
-    },
-    {
-        day: '06/08/2024',
-        count: 45,
-    },
-    {
-        day: '07/08/2024',
-        count: 66,
-    },
-    {
-        day: '08/08/2024',
-        count: 105,
-    },
-    {
-        day: '08/09/2024',
-        count: 88,
-    },
-];
+// const data = [
+//     {
+//         day: '03/08/2024',
+//         count: 50,
+//     },
+//     {
+//         day: '04/08/2024',
+//         count: 75,
+//     },
+//     {
+//         day: '05/08/2024',
+//         count: 80,
+//     },
+//     {
+//         day: '06/08/2024',
+//         count: 45,
+//     },
+//     {
+//         day: '07/08/2024',
+//         count: 66,
+//     },
+//     {
+//         day: '08/08/2024',
+//         count: 105,
+//     },
+//     {
+//         day: '08/09/2024',
+//         count: 88,
+//     },
+// ];
 
 const data2 = [
     {
@@ -88,13 +88,24 @@ function EventDetail() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [editing, setEditing] = useState(false);
+    const [statistic, setStatistic] = useState([]);
     const navigate = useNavigate();
-
+    const transform = (data) => {
+        return  data.map(item => ({
+            ...item,
+            day: item.day.split('T')[0] 
+        }));
+    }
     useEffect(() => {
         const fetchEvent = async () => {
             try {
-                const eventData = await getEvent(eventId);
+                const [eventData, statisticData] = await Promise.all([
+                    getEvent(eventId),
+                    getTotalAttendancesByEventIDInWeek(eventId)
+                ]); ;
+                
                 setEvent(eventData.data.data);
+                setStatistic(transform(statisticData.data.data))
                 setLoading(false);
             } catch (err) {
                 setError(err);
@@ -165,7 +176,7 @@ function EventDetail() {
                         )}
 
                     <div className="event_chart">
-                        <Chart data={data} height={390} title="Number of plays" />
+                        <Chart data={statistic} height={390} title="Number of plays" />
                     </div>
                 </div>
 
