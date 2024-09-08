@@ -62,6 +62,10 @@ export const createVoucher = (eventId,payload) => API.post(`/event/${eventId}/vo
 export const getTotalAttendancesByEventIDInWeek = (id) => API.get(`/enterprise/statistic/total_attendances_by_event_id_in_week/${id}`)
 export const getAttendancesInWeek
 = () => API.get(`/enterprise/statistic/total_attendances_in_week`)
+export const getEventPercent = () => API.get(`/user/enterprise/statistic/event_percent`)
+
+
+
 // ----------------------------EndUser--------------------------
 export const getAllEndUsers = () => API.get('/enduser');
 export const getEndUser = () => API.get(`/enduser`);

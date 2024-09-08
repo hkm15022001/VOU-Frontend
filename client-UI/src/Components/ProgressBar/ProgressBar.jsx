@@ -1,20 +1,35 @@
 import GradeIcon from '@mui/icons-material/Grade';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import { Tooltip } from '@mui/material';
-import React from 'react';
 import 'react-circular-progressbar/dist/styles.css';
 import { Pie, PieChart, ResponsiveContainer, Text } from 'recharts';
-
+import { getEventPercent } from '../../api';
 // import css filr
 import './progressBar.scss';
 
 function ProgressBar() {
     const data01 = [
-        { name: 'Event Summer 2', value: 43 },
-        { name: 'mua he', value: 57 },
+        { event_id: 'Event Summer 2', percent: 43 },
+        { event_id: 'mua he', percent: 57 },
     ];
-    const renderCustomLabel = ({ name, percent, x, y }) => {
+    const [eventPercent, setEventPercent] = useState([]);
+    useEffect(() => {
+        getEventPercent()
+          .then(response => {
+            if (response.data.data === null) {
+                setEventPercent(data01)
+            }
+            setEventPercent(response.data.data);
+          })
+          .catch(error => {
+            setEventPercent(data01)
+            console.error('error when call API:', error);
+          });
+      }, []);
+    const renderCustomLabel = ({ event_id, percent, x, y }) => {
         return (
             <Text
                 x={x}
@@ -24,7 +39,7 @@ function ProgressBar() {
                 dominantBaseline="central"
                 style={{ fontSize: 12 }} // Kích thước chữ
             >
-                {`${name} (${(percent * 100).toFixed(0)}%)`}
+                {`${event_id} (${percent} %)`}
             </Text>
         );
     };
@@ -41,9 +56,9 @@ function ProgressBar() {
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart width={400} height={400}>
                             <Pie
-                                dataKey="value"
+                                dataKey="percent"
                                 isAnimationActive={false}
-                                data={data01}
+                                data={eventPercent}
                                 cx="50%"
                                 cy="50%"
                                 outerRadius={80}

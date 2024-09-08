@@ -91,11 +91,12 @@ const GachaBox = () => {
     }
     const randomItems = [];
     const { character, exclude } = banners[currentBanner];
-    console.log("itemList-handleGacha:",itemList )
+    console.log("itemList-handleGacha:", itemList)
 
     const allowedItems = itemList.filter(item => !exclude.includes(item.images) && item.images !== character);
     let hasSpecialCharacter = false;
     let newBag = [...bag];
+    let newItems = []; // Array to store newly obtained items
 
     for (let i = 0; i < (subCount+1); i++) {
       const isSpecialCharacter = Math.random() < 0.5; // 10% chance
@@ -119,9 +120,17 @@ const GachaBox = () => {
         } else {
           newBag.push({ ...rolledItem, number: 1 });
         }
+
+        // Add to newItems array
+        const newItemIndex = newItems.findIndex(item => item.item_type_id === rolledItem.item_type_id);
+        if (newItemIndex !== -1) {
+          newItems[newItemIndex].number += 1;
+        } else {
+          newItems.push({ item_type_id: rolledItem.item_type_id, number: 1 });
+        }
       }
     }
-    console.log("newbag: ",newBag)
+    console.log("newbag: ", newBag)
     setBag(newBag);
     setResult(randomItems);
     setVideoSrc(hasSpecialCharacter ? '/video2.mp4' : '/video1.mp4');
@@ -129,15 +138,15 @@ const GachaBox = () => {
 
     try {
       await Promise.all([
-        addItems({ data: newBag }),
-        playEvent(eventId,{ "number": subCount }) 
+        addItems({ data: newItems }), // Send only new items to the server
+        playEvent(eventId, { "number": subCount }) 
       ]);
       setPlayCount(prevCount => prevCount - subCount);
     } catch (err) {
       console.error(err);
     }
   };
-
+  
   const handleSpeakComplete = () => {
     // Có thể thêm logic sau khi MC nói xong ở đây
     console.log('MC đã nói xong');
