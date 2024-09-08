@@ -122,7 +122,7 @@ function EventDetail() {
             await updateEvent(eventId, updatedEvent);
             setEvent(updatedEvent);
             setEditing(false);
-            navigate('/events'); // Điều hướng về trang danh sách người dùng
+            navigate('/enterprise/events'); // Điều hướng về trang danh sách người dùng
         } catch (error) {
             setError(error);
         }
