@@ -1,0 +1,6 @@
+nohup: ignoring input
+
+> myapp@0.0.0 start
+> node app.js
+
+Server is running on port 5175

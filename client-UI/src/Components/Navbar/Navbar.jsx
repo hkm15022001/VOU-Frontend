@@ -23,7 +23,7 @@ import { ColorContext } from '../../ColorContext/darkContext';
 import './navbar.scss';
 
 // import images
-import admin from '../../Images/admin_pic.jpg';
+import admin from '/Images/admin_pic.jpg';
 function handleLogout() {
     localStorage.removeItem('accessToken');
     window.location.href = '/login';

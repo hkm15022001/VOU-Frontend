@@ -9,7 +9,7 @@ import { createGame, createUser, uploadGameImage } from '../../api';
 import Input from '../../Components/Input/Input';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import noImage from '../../Images/photo-camera.png';
+import noImage from '/Images/photo-camera.png';
 import './New.scss';
 
 function AddNew({ inputs, titlee, type }) {

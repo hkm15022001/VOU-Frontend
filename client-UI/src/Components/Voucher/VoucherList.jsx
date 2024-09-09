@@ -32,7 +32,7 @@ const VoucherList = ({ eventId }) => {
     // Implement delete functionality here
     console.log('Delete voucher:', voucherId);
     try {
-       await deleteVoucher(eventId);
+       await deleteVoucher(voucherId);
       fetchVouchers()
     } catch (error) {
       console.error('Error delete vouchers:', error);

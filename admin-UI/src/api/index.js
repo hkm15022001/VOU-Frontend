@@ -47,38 +47,38 @@ export const apiInstance = API;
 
 
 // ----------------------------User (staff) --------------------------
-export const getAllUsers = () => API.get('/admin/user');
-export const getUser = (identity) => API.get(`/admin/user/${identity}`);
-export const createUser = (newUser) => API.post('/admin/user', newUser);
-export const updateUser = (identity, updatedUser) => API.put(`/admin/user/${identity}`, updatedUser);
-export const deleteUser = (identity) => API.delete(`/admin/user/${identity}`);
+export const getAllUsers = () => API.get('/user');
+export const getUser = (identity) => API.get(`/user/${identity}`);
+export const createUser = (newUser) => API.post('/user', newUser);
+export const updateUser = (identity, updatedUser) => API.put(`/user/${identity}`, updatedUser);
+export const deleteUser = (identity) => API.delete(`/user/${identity}`);
 // ----------------------------Games--------------------------
-export const getAllGames = () => API.get('/admin/game');
-export const getGame = (identity) => API.get(`/admin/game/${identity}`);
-export const createGame = (newGame) => API.post('/admin/game', newGame);
-export const updateGame = (identity, updatedGame) => API.put(`/admin/game/${identity}`, updatedGame);
-export const deleteGame = (identity) => API.delete(`/admin/game/${identity}`);
+export const getAllGames = () => API.get('/game');
+export const getGame = (identity) => API.get(`/game/${identity}`);
+export const createGame = (newGame) => API.post('/game', newGame);
+export const updateGame = (identity, updatedGame) => API.put(`/game/${identity}`, updatedGame);
+export const deleteGame = (identity) => API.delete(`/game/${identity}`);
 // ----------------------------Events--------------------------
-export const getAllEvents = () => API.get('/admin/event');
+export const getAllEvents = () => API.get('/event/all');
 export const getEvent = (identity) => API.get(`/event/${identity}`);
 export const createEvent = (newEvent) => API.post('/event', newEvent);
 export const updateEvent = (identity, updatedEvent) => API.put(`/event/${identity}`, updatedEvent);
 export const deleteEvent = (identity) => API.delete(`/event/${identity}`);
 // ----------------------------Enterprise--------------------------
-export const getAllEnterprises = () => API.get('/admin/enterprise');
+export const getAllEnterprises = () => API.get('/user/enterprise/all');
 // export const getEnterprise = (identity) => API.get(`/enterprise/${identity}`);
 // export const createEnterprise = (newEnterprise) => API.post('/enterprise', newEnterprise);
 // export const updateEnterprise = (identity, updatedEnterprise) => API.put(`/enterprise/${identity}`, updatedEnterprise);
 // export const deleteEnterprise = (identity) => API.delete(`/enterprise/${identity}`);
 // ---------------------------- Auth --------------------------
-export const login = (payload) => API.post('/auth/login', payload);
+export const login = (payload) => API.post('/user/login', payload);
 // ---------------------------- Statistics --------------------------
-export const getCountAllUsers = () => API.get('/admin/statistic/total_users');
-export const getCountAllGames = () => API.get('/admin/statistic/total_games');
-export const getCountAllEnterprises = () => API.get('/admin/statistic/total_enterprises');
-export const getCountAllEndUsers = () => API.get('/admin/statistic/total_end_users');
-export const getStatisticUsers = () => API.get('/admin/statistic/total_new_end_users_in_week')
-export const getStatisticEnterprises = () => API.get('/admin/statistic/total_new_enterprises_in_week')
+export const getCountAllUsers = () => API.get('/user/statistic/total_users');
+export const getCountAllGames = () => API.get('/user/statistic/total_games');
+export const getCountAllEnterprises = () => API.get('/user/statistic/total_enterprises');
+export const getCountAllEndUsers = () => API.get('/user/statistic/total_end_users');
+export const getStatisticUsers = () => API.get('/user/statistic/total_new_end_users_in_week')
+export const getStatisticEnterprises = () => API.get('/user/statistic/total_new_enterprises_in_week')
 
 
 // ----------------------------image --------------------------

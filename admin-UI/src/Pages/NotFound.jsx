@@ -1,5 +1,5 @@
 import React from 'react';
-import warning from '../Images/warning.png';
+import warning from '/Images/warning.png';
 import './notfound.scss';
 
 function PageNotFound() {

@@ -70,7 +70,7 @@ const VirtualMC = forwardRef(({ onSpeakComplete }, ref) => {
   return (
     <div className="virtual-mc-container">
       <div className={`virtual-mc ${isSpeaking ? 'speaking' : ''}`}>
-        <img src="/src/Images/virtual-assistant-software-tools1.jpg" alt="Virtual MC" />
+        <img src="/Images/virtual-assistant-software-tools1.jpg" alt="Virtual MC" />
       </div>
       {mcText && <div className="mc-text">{mcText}</div>}
       {isPrepared && (

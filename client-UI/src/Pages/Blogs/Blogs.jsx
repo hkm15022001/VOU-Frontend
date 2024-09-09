@@ -6,12 +6,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import blog1 from '../../Images/blog1.jpg';
-import blog2 from '../../Images/blog2.jpg';
-import blog3 from '../../Images/blog3.jpg';
-import blog4 from '../../Images/blog4.jpg';
-import blog5 from '../../Images/book3.jpg';
-import blog6 from '../../Images/book5.jpg';
+import blog1 from '/Images/blog1.jpg';
+import blog2 from '/Images/blog2.jpg';
+import blog3 from '/Images/blog3.jpg';
+import blog4 from '/Images/blog4.jpg';
+import blog5 from '/Images/book3.jpg';
+import blog6 from '/Images/book5.jpg';
 import './blogs.scss';
 
 const userData = [

@@ -103,7 +103,7 @@ const MyItems = () => {
                                     <CardMedia
                                         component="img"
                                         height="140"
-                                        image={`/src/Images/characters/${item.images}`}
+                                        image={`/Images/characters/${item.images}`}
                                         alt={item.name}
                                     />
                                     <CardContent>

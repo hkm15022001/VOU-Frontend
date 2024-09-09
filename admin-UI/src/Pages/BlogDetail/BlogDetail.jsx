@@ -4,7 +4,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import React from 'react';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import blogimg from '../../Images/blog2.jpg';
+import blogimg from '/Images/blog2.jpg';
 import './blogdetail.scss';
 
 function BlogDetail() {

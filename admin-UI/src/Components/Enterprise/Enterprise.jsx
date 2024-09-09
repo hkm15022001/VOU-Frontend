@@ -2,7 +2,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { BackEndAddress, getAllEnterprises } from '../../api';
 import './enterprise.scss';
-import image from '../../Images/book1.jpg'
+import image from '/Images/book1.jpg'
 const EnterpriseDataGrid = () => {
   const [enterprises, setEnterprises] = useState([]);
   const [loading, setLoading] = useState(true);

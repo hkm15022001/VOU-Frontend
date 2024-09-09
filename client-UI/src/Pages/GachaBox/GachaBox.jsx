@@ -7,7 +7,7 @@ import VirtualMC from '../../Components/EndUser/VirtualMC';
 import { getAllTurns, getItemLists,getMyItems,playEvent, addItems } from '../../api';
 const initialBanners = [
   {
-    image: '/src/Images/banners/can_banner.png',
+    image: '/Images/banners/can_banner.png',
     character: 'can.png',
     exclude: ['jingyuan.png', 'yasuo.png'],
     title: 'Cái bình?',
@@ -16,7 +16,7 @@ const initialBanners = [
     additional: 'Chỉ có thể nhận được các nhân vật limited của mỗi banner sự kiện cầu nguyện đã được chỉ định. Xem chi tiết để biết thêm.'
   },
   {
-    image: '/src/Images/banners/jingyuan_banner.png',
+    image: '/Images/banners/jingyuan_banner.png',
     character: 'jingyuan.png',
     exclude: ['can.png', 'yasuo.png'],
     title: 'Ngài',
@@ -25,7 +25,7 @@ const initialBanners = [
     additional: 'Chỉ có thể nhận được các nhân vật limited của mỗi banner sự kiện cầu nguyện đã được chỉ định. Xem chi tiết để biết thêm.'
   },
   {
-    image: '/src/Images/banners/yasuo_banner.png',
+    image: '/Images/banners/yasuo_banner.png',
     character: 'yasuo.png',
     exclude: ['can.png', 'jingyuan.png'],
     title: 'Hasameo',
@@ -264,7 +264,7 @@ const GachaBox = () => {
       <div className="bag-items">
         {bag.map((item, index) => (
           <div key={index} className="bag-item">
-            <img src={`/src/Images/characters/${item.images}`} alt={item.name} />
+            <img src={`/Images/characters/${item.images}`} alt={item.name} />
             <div>{item.name} x {item.number}</div>
           </div>
         ))}
@@ -350,7 +350,7 @@ const GachaBox = () => {
           <div className="result">
             {result.map((item, index) => (
               <div key={index} className={`result-item ${item.images === banners[currentBanner].character ? 'limited' : ''}`}>
-                <img src={`/src/Images/characters/${item.images}`} alt={item.name} />
+                <img src={`/Images/characters/${item.images}`} alt={item.name} />
                 <div>{item.name}</div>
               </div>
             ))}

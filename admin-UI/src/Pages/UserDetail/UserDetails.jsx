@@ -1,6 +1,6 @@
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import React from 'react';
-import userPic from '../../Images/man2.jpg';
+import userPic from '/Images/man2.jpg';
 import './UserDetails.scss';
 function UserDetails({ user }) {
     return (

@@ -124,7 +124,7 @@ const VirtualMC = React.forwardRef((props, ref) => {
         >
             <Box
                 component="img"
-                src="/src/Images/virtual-assistant-software-tools1.jpg"
+                src="/Images/virtual-assistant-software-tools1.jpg"
                 alt="Virtual MC"
                 sx={{
                     width: '100%',

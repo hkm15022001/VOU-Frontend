@@ -122,7 +122,7 @@ const AttendedEvents = () => {
     };
 
     const handleShare = (event) => {
-        const shareUrl = `http://34.124.217.226:5173`;
+        const shareUrl = `https://vou21ktpm3.id.vn`;
         const quote = `Check out this event: ${event.name} of ${event.enterprise_name}\nStart time at ${event.start_time} and End time at ${event.end_time}`;
 
         return (
@@ -295,7 +295,7 @@ const AttendedEvents = () => {
                         Hãy sử dụng mã QR code này để nhận phần thưởng của bạn.
                     </Typography>
                     {qrCodeImage && (
-                        <img src={`${BackEndAddress}/image/vouchercode/${qrCodeImage}`} alt="QR Code" style={{ maxWidth: '100%', height: 'auto' }} />
+                        <img src={`${BackEndAddress}/user/vouchercode/${qrCodeImage}`} alt="QR Code" style={{ maxWidth: '100%', height: 'auto' }} />
                     )}
                     <Button onClick={handleCloseQrCodeModal} sx={{ mt: 2 }}>Đóng</Button>
                 </Box>
